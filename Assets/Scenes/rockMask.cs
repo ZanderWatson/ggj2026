@@ -1,5 +1,8 @@
 // Ethan Le (1/30/2026): rockMask.cs
 // Allows player to use the Rock Mask's ability: temporary invincibility with reduced speed. 
+using System.Collections;
+using UnityEngine;
+
 public class RockMask : MonoBehaviour
 {
     [Header("Ability Settings")]
@@ -12,14 +15,14 @@ public class RockMask : MonoBehaviour
     public bool useMouseButton = false; // Toggle for mouse input. 
 
     private bool isOnCooldown = false;
-    private Player player;
+    private player player;
     private float originalSpeed;
 
     public GameObject maskObject;
 
     void Start()
     {
-        player = GetComponent<Player>(); // Get the player.cs script component. 
+        player = GetComponent<player>(); // Get the player.cs script component. 
         originalSpeed = player.speed; // Assign OG player speed to revert speed back later. 
     }
 

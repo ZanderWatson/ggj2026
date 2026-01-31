@@ -14,7 +14,6 @@ public class player : MonoBehaviour
     const float MAX_SPEED = 10;
     public static ArrayList masks = new ArrayList();
     float attackSpeedTimer;
-    public float speed = 6;
 
     bool up; bool left; bool right; bool down;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
