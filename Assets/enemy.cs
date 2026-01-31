@@ -11,6 +11,7 @@ public class enemy : MonoBehaviour
     SpriteRenderer spriteRenderer;
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         character = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -19,7 +20,7 @@ public class enemy : MonoBehaviour
         Vector3 playerDirection = Vector3.zero;
         if (game_states.prepPhase)
         {
-            playerDirection = 2 * (character.transform.position - transform.position).normalized;
+            playerDirection = 1 * (character.transform.position - transform.position).normalized;
         } 
         else if (game_states.duelPhase)
         {
@@ -48,7 +49,6 @@ public class enemy : MonoBehaviour
             takeDamage(15);
             Destroy(collision.gameObject, 0.03f);
         }
-
     }
 
     public void takeDamage(float amount)

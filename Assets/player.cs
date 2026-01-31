@@ -1,15 +1,17 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Diagnostics.Tracing;
 using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
-    Rigidbody2D rb;
     public GameObject projectile;
     [NonSerialized] public float speed;
     [NonSerialized] public bool isInvincible = false;
@@ -19,7 +21,12 @@ public class player : MonoBehaviour
     Vector2 velocity = Vector2.zero;
     float acceleration = 1;
     const float MAX_SPEED = 4;
-    public static ArrayList masks = new ArrayList();
+    public static List<int> maskInventory = new List<int>();
+    public Image mask1; public Image mask2; public Image mask3;
+    public static List<Image> maskImages = new List<Image>();
+    public Sprite rockMask; public Sprite skiMask; public Sprite bandanaMask; public Sprite hospitalMask; public Sprite spaMask;
+    public Sprite gasMask; public Sprite tikiMask;
+    List<GameObject> enemies;
     float attackSpeedTimer;
 
     bool up; bool left; bool right; bool down;
@@ -29,9 +36,10 @@ public class player : MonoBehaviour
     }
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         speed = 8;
         health = 100;
+        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+        maskImages.Add(mask1); maskImages.Add(mask2); maskImages.Add(mask3);
     }
 
     void Update()
@@ -52,6 +60,70 @@ public class player : MonoBehaviour
             proj.GetComponent<Rigidbody2D>().AddForce((mouse - new Vector2(transform.position.x, transform.position.y)).normalized * projSpeed, ForceMode2D.Impulse);
             Destroy(proj, 3);
         }
+        // Press F key to challenge and enemy
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            float minDistanceToEnemy = float.MaxValue;
+            GameObject closestEnemy = null;
+            foreach (GameObject enemy in enemies)
+            {
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                if (distance < minDistanceToEnemy)
+                {
+                    minDistanceToEnemy = distance;
+                    closestEnemy = enemy;
+                }
+            }
+            if (minDistanceToEnemy <= 1)
+            {
+                game_states.SwitchPhases();
+                foreach (GameObject enemy in enemies)
+                {
+                    if (!enemy.Equals(closestEnemy))
+                    {
+                        enemy.SetActive(false);
+                    }
+                }
+            }
+        }
+        // Manage inventory
+        for (int i = 0; i < maskInventory.Count; i++)
+        {
+            maskImages[i].color = Color.white;
+            if (maskInventory[i] == 0)
+            {
+                maskImages[i].color = Color.clear;
+            } 
+            else if (maskInventory[i] == 1)
+            {
+                maskImages[i].sprite = rockMask;
+            }
+            else if (maskInventory[i] == 2)
+            {
+                maskImages[i].sprite = skiMask;
+            }
+            else if (maskInventory[i] == 3)
+            {
+                maskImages[i].sprite = bandanaMask;
+            }
+            else if (maskInventory[i] == 4)
+            {
+                maskImages[i].sprite = hospitalMask;
+            }
+            else if (maskInventory[i] == 5)
+            {
+                maskImages[i].sprite = spaMask;
+            }
+            else if (maskInventory[i] == 6)
+            {
+                maskImages[i].sprite = gasMask;
+            }
+            else if (maskInventory[i] == 7)
+            {
+                maskImages[i].sprite = tikiMask;
+            }
+        }
+
     }
     private void FixedUpdate()
     {
