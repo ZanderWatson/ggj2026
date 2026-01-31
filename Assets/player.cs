@@ -37,8 +37,10 @@ public class player : MonoBehaviour
         right = Input.GetKey(KeyCode.D);
         // Ability
         attackSpeedTimer -= Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && attackSpeedTimer < 0) {
+        if (Input.GetMouseButtonDown(0) && attackSpeedTimer < 0)
+        {
             attackSpeedTimer = 0.5f;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);

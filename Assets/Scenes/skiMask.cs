@@ -3,7 +3,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RockMask : MonoBehaviour
+public class SkiMask : MonoBehaviour
 {
     [Header("Ability Settings")]
     public float abilityDuration = 4f;
@@ -34,17 +34,17 @@ public class RockMask : MonoBehaviour
         {
             if (useMouseButton && Input.GetMouseButtonDown(1)) // Right mouse click to activate ability. 
             {
-                StartCoroutine(ActivateRockMask()); // Start ability duration routine. 
+                StartCoroutine(ActivateSkiMask()); // Start ability duration routine. 
             }
 
             else if (!useMouseButton && Input.GetKeyDown(abilityKey)) // Keyboard key alternative to activate ability. 
             {
-                StartCoroutine(ActivateRockMask()); // Start ability duration routine. 
+                StartCoroutine(ActivateSkiMask()); // Start ability duration routine. 
             }
         }
     }
 
-    private IEnumerator ActivateRockMask()
+    private IEnumerator ActivateSkiMask()
     {
         isOnCooldown = true; // Set cooldown flag for ability. 
 
