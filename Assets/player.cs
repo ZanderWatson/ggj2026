@@ -74,7 +74,7 @@ public class player : MonoBehaviour
         }
         velocity = Vector2.ClampMagnitude(velocity, MAX_SPEED);
         velocity = Vector2.MoveTowards(velocity, Vector2.zero, 0.5f);
-        transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3) velocity * Time.fixedDeltaTime, velocity.magnitude * Time.fixedDeltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)velocity * Time.fixedDeltaTime, velocity.magnitude * Time.fixedDeltaTime);
     }
 
     public void takeDamage(float amount)

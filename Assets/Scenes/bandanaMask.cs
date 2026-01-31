@@ -1,5 +1,5 @@
 // Ethan Le (1/30/2026): bandanaMask.cs
-// Allows player to use the Bandana Mask's ability: Shoot a projectile. 
+// Allows player to use the Bandana Mask's ability: Shoot a special projectile with x2 Attack Power. 
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +9,7 @@ public class BandanaMask : MonoBehaviour
     public GameObject projectilePrefab; // Assign the projectile prefab in the Unity Inspector. 
     public float projectileSpeed = 15f; // Speed the projectile is launched at. 
     public float cooldownTime = 10f;
+    public float attackPowerMultiplier = 2f; // Multiplier for attack power for the mask's projectile shot. 
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 
@@ -65,7 +66,7 @@ public class BandanaMask : MonoBehaviour
         BandanaProjectile bp = projectile.GetComponent<BandanaProjectile>(); // Get the BandanaProjectile script component. 
         if (bp != null)
         {
-            bp.Launch(mouseWorldPosition, player.attackPower, projectileSpeed); // Launch the projectile towards the mouse position with player's attack power. 
+            bp.Launch(mouseWorldPosition, player.attackPower * attackPowerMultiplier, projectileSpeed); // Launch the projectile towards the mouse position with player's attack power. 
         }
 
         else // Safety check. 
