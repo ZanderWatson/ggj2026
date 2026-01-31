@@ -358,7 +358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &882886183
 SpriteRenderer:
   serializedVersion: 2
@@ -660,6 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba79e8acd5f0470419fc5573b65e6133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  character: {fileID: 0}
 --- !u!212 &1178026502
 SpriteRenderer:
   serializedVersion: 2

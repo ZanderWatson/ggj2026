@@ -32,7 +32,7 @@ public class mask : MonoBehaviour
     {
         if (followingPlayer)
         {
-            Vector3.MoveTowards(transform.position, character.transform.position, 0.01f);
+            transform.position = Vector3.MoveTowards(transform.position, character.transform.position, 0.5f);
         }
     }
 }

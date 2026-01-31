@@ -43,21 +43,21 @@ public class player : MonoBehaviour
         // Movement
         if (up)
         {
-            rb.AddForceY(speed, ForceMode2D.Force);
+            rb.linearVelocity += Vector2.up;
         }
         if (left)
         {
-            rb.AddForceX(-speed, ForceMode2D.Force);
+            rb.linearVelocity += Vector2.left;
         }
         if (down)
         {
-            rb.AddForceY(-speed, ForceMode2D.Force);
+            rb.linearVelocity += Vector2.down;
         }
         if (right)
         {
-            rb.AddForceX(speed, ForceMode2D.Force);
+            rb.linearVelocity += Vector2.right;
         }
         rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, MAX_SPEED);
-        
+        rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, Vector2.zero, 0.5f);
     }
 }
