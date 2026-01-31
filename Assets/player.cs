@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Diagnostics.Tracing;
+using System.Runtime.Intrinsics.X86;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +14,7 @@ public class player : MonoBehaviour
     const float MAX_SPEED = 10;
     public static ArrayList masks = new ArrayList();
     float attackSpeedTimer;
+    public float speed = 6;
 
     bool up; bool left; bool right; bool down;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,6 +36,8 @@ public class player : MonoBehaviour
         attackSpeedTimer -= Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && attackSpeedTimer < 0) {
             attackSpeedTimer = 0.5f;
+        if (Input.GetMouseButtonDown(0))
+        {
             Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
             proj.SetActive(true);
