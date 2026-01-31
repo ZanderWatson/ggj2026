@@ -33,6 +33,15 @@ public class enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (game_states.duelPhase && collision.gameObject.layer == 6)
+        {
+            takeDamage(15);
+        }
+
+    }
+
     public void takeDamage(float amount)
     {
         health -= amount;
