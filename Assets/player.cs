@@ -30,7 +30,9 @@ public class player : MonoBehaviour
         down = Input.GetKey(KeyCode.S);
         right = Input.GetKey(KeyCode.D);
         // Ability
-        if (Input.GetMouseButtonDown(0)) {
+        attackSpeedTimer -= Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && attackSpeedTimer < 0) {
+            attackSpeedTimer = 0.5f;
             Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
             proj.SetActive(true);

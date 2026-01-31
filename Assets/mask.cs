@@ -22,7 +22,7 @@ public class mask : MonoBehaviour
         {
             followingPlayer = true;
         } 
-        else if (Vector2.Distance(character.transform.position, transform.position) < 0.3f)
+        else if (Vector2.Distance(character.transform.position, transform.position) < 0.05f)
         {
             player.masks.Add(maskType);
             Destroy(gameObject);
