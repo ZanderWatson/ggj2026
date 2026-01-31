@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Data.SqlTypes;
 using System.Diagnostics.Tracing;
 using System.Runtime.Intrinsics.X86;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +12,8 @@ public class player : MonoBehaviour
     Rigidbody2D rb;
     public GameObject projectile;
     [NonSerialized] public float speed;
+    [NonSerialized] public bool isInvincible = false;
+    [NonSerialized] public float attackPower = 1;
     float projSpeed = 10;
     const float MAX_SPEED = 10;
     public static ArrayList masks = new ArrayList();

@@ -1,5 +1,5 @@
-// Ethan Le (1/30/2026): rockMask.cs
-// Allows player to use the Rock Mask's ability: temporary invincibility with reduced speed. 
+// Ethan Le (1/30/2026): skiMask.cs
+// Allows player to use the Ski Mask's ability: 1.5x speed but reduces attack power by 50%. 
 using System.Collections;
 using UnityEngine;
 
@@ -7,8 +7,9 @@ public class RockMask : MonoBehaviour
 {
     [Header("Ability Settings")]
     public float abilityDuration = 4f;
-    public float speedMultiplier = 0.5f;
+    public float speedMultiplier = 1.5f;
     public float cooldownTime = 10f;
+    public float attackPower = 0.5f; // Reduce attack power by half. 
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 
@@ -24,6 +25,7 @@ public class RockMask : MonoBehaviour
     {
         player = GetComponent<player>(); // Get the player.cs script component. 
         originalSpeed = player.speed; // Assign OG player speed to revert speed back later. 
+        originalAttackPower = player.attackPower; // Assign OG attack power to revert back later. 
     }
 
     void Update()
@@ -48,14 +50,14 @@ public class RockMask : MonoBehaviour
 
         // Enable mask effects: 
         player.speed *= speedMultiplier; // Reduce player speed. 
-        player.isInvincible = true; // Set player's invincibility flag to true. 
+        player.attackPower *= attackPower; // Reduce player's attack power. 
 
         // Wait for duration of invincibility before continuing code execution: 
-        yield return new WaitForSeconds(invincibilityDuration); // Pauses code execution for set duration. 
+        yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 
 
         // Disable mask effects after invincibility duration:
         player.speed = originalSpeed;
-        player.isInvincible = false;
+        player.attackPower = originalAttackPower; // Revert attack power back to original. 
 
         // Start cooldown timer before ability can be used again:: 
         yield return new WaitForSeconds(cooldownTime); // Pauses code execution for cooldown duration. 
