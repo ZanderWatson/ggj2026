@@ -531,9 +531,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444c8aaabd0c9fa4a9dda1658d1aa4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BandanaMask
-  projectilePrefab: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
+  projectilePrefab: {fileID: 3983604021034379793, guid: a2609f2c1642a3040a3cf6d0923cfc27, type: 3}
   projectileSpeed: 15
   cooldownTime: 10
+  attackPowerMultiplier: 2
   abilityKey: 101
   useMouseButton: 1
   maskObject: {fileID: 0}
