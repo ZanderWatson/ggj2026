@@ -7,7 +7,6 @@ public class mask : MonoBehaviour
     Rigidbody2D rb;
     bool followingPlayer = false;
     int maskType;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         character = GameObject.Find("Player");
@@ -22,7 +21,7 @@ public class mask : MonoBehaviour
         {
             followingPlayer = true;
         } 
-        else if (Vector2.Distance(character.transform.position, transform.position) < 0.05f)
+        if (Vector2.Distance(character.transform.position, transform.position) < 0.2f)
         {
             player.masks.Add(maskType);
             Destroy(gameObject);

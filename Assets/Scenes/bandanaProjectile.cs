@@ -32,24 +32,4 @@ public class BandanaProjectile : MonoBehaviour
         // Destroy projectile after 4 seconds to prevent lingering: 
         Destroy(gameObject, 4f);
     }
-
-    // Handle collision with enemies or environment: 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Only interact with enemies (tagged as "Enemy"):
-        if (collision.CompareTag("Enemy"))
-        {
-            enemy enemy = collision.GetComponent<enemy>(); // Get the Enemy script component. 
-            if (enemy != null)
-            {
-                enemy.takeDamage(damage); // Apply damage to the enemy. 
-            }
-            Destroy(gameObject); // Destroy projectile on impact. 
-        }
-
-        else if (collision.CompareTag("Environment"))
-        {
-            Destroy(gameObject); // Destroy projectile on impact with environment. 
-        }
-    }
 }

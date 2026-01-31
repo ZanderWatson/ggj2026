@@ -60,7 +60,7 @@ public class BandanaMask : MonoBehaviour
 
         // Spawn the projectile starting from player's position: 
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity); // Spawn projectile starting at player's position. 
-
+        projectile.SetActive(true);
         // Launch projectile and set damage: 
         BandanaProjectile bp = projectile.GetComponent<BandanaProjectile>(); // Get the BandanaProjectile script component. 
         if (bp != null)

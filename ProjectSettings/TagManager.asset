@@ -41,5 +41,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Projectiles
+    uniqueID: 1292248361
+    locked: 0
+  - name: Characters
+    uniqueID: 2670269879
+    locked: 0
   m_RenderingLayers:
   - Default
