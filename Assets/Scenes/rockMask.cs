@@ -51,7 +51,7 @@ public class RockMask : MonoBehaviour
         player.isInvincible = true; // Set player's invincibility flag to true. 
 
         // Wait for duration of invincibility before continuing code execution: 
-        yield return new WaitForSeconds(invincibilityDuration); // Pauses code execution for set duration. 
+        yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 
 
         // Disable mask effects after invincibility duration:
         player.speed = originalSpeed;

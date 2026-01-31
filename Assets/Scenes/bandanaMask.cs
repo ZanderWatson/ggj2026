@@ -70,7 +70,8 @@ public class BandanaMask : MonoBehaviour
 
         else // Safety check. 
         {
-            return;
+            Destroy(projectile); // Destroy the projectile if it lacks the BandanaProjectile script. 
+            yield break; // Exit the coroutine early. 
         }
 
         // Start cooldown timer before ability can be used again: 

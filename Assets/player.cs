@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Data.SqlTypes;
 using System.Diagnostics.Tracing;
-using System.Runtime.Intrinsics.X86;
 using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.InputSystem;

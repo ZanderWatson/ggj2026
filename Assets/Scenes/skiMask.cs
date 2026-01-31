@@ -18,6 +18,7 @@ public class SkiMask : MonoBehaviour
     private bool isOnCooldown = false;
     private player player;
     private float originalSpeed;
+    private float originalAttackPower;
 
     public GameObject maskObject;
 
