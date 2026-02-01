@@ -54,13 +54,6 @@ public class player : MonoBehaviour
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         maskImages.Add(mask1); maskImages.Add(mask2); maskImages.Add(mask3);
         while (maskLevels.Count < 3) maskLevels.Add(1);
-
-        // Testing with the Bandana Mask by default: REMOVE LATER
-        if (maskInventory.Count == 0)
-        {
-            maskInventory.Add(7); // Start with bandana mask by default. 
-            activeMask = 7;
-        }
     }
 
     void Update()
