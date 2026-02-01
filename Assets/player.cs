@@ -41,8 +41,10 @@ public class player : MonoBehaviour
     float acceleration = 1;
     public float maxSpeed = 6;
     bool up; bool left; bool right; bool down;
+    public GameObject circle;
     void Start()
     {
+        circle = GameObject.Find("punch debug");
         speed = 8;
         health = 100;
         healthBarFill = GameObject.Find("Health Bar Fill").GetComponent<Image>();
@@ -235,7 +237,8 @@ public class player : MonoBehaviour
         // Hitbox: circle in front of player
         Vector2 punchPosition = (Vector2)transform.position + punchDirection * (punchRange * 0.5f);
         Collider2D[] hits = Physics2D.OverlapCircleAll(punchPosition, punchRange * 0.5f);
-
+        // Debug
+        StartCoroutine(showPunchCircle(punchPosition));
         float damage = (isCharged ? chargedPunchDamage : normalPunchDamage) * attackPower;
 
         foreach (Collider2D hit in hits)
@@ -246,6 +249,13 @@ public class player : MonoBehaviour
                 e.takeDamage(damage);
             }
         }
+    }
+    IEnumerator showPunchCircle(Vector2 pos)
+    {
+        circle.transform.position = pos;
+        circle.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        circle.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public static int GetMaskLevel(int maskType)
