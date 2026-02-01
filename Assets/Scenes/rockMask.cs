@@ -23,7 +23,7 @@ public class RockMask : MonoBehaviour
     void Start()
     {
         player = GetComponent<player>(); // Get the player.cs script component. 
-        originalSpeed = player.speed; // Assign OG player speed to revert speed back later. 
+        originalSpeed = player.maxSpeed; // Assign OG player speed to revert speed back later. 
     }
 
     void Update()
@@ -49,7 +49,7 @@ public class RockMask : MonoBehaviour
         float duration = abilityDuration + (level - 1) * 0.5f; // +0.5s per level. 
 
         // Enable mask effects: 
-        player.speed *= speedMultiplier; // Reduce player speed. 
+        player.maxSpeed *= speedMultiplier; // Reduce player speed. 
         player.isInvincible = true; // Set player's invincibility flag to true. 
 
         // Particle System activate
@@ -62,7 +62,7 @@ public class RockMask : MonoBehaviour
         yield return new WaitForSeconds(duration); 
 
         // Disable mask effects after invincibility duration:
-        player.speed = originalSpeed;
+        player.maxSpeed = originalSpeed;
         player.isInvincible = false;
 
         // Start cooldown timer before ability can be used again:: 
