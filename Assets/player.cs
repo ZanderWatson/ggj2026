@@ -53,8 +53,8 @@ public class player : MonoBehaviour
         // Testing with the Bandana Mask by default: REMOVE LATER
         if (maskInventory.Count == 0)
         {
-            maskInventory.Add(6); // Start with bandana mask by default. 
-            activeMask = 6;
+            //maskInventory.Add(6); // Start with bandana mask by default. 
+            //activeMask = 6;
         }
     }
 

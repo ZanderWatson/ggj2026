@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -10,8 +11,7 @@ public class game_states : MonoBehaviour
     static GameObject character;
     public GameObject mask;
     static GameObject map;
-    const int MASKS_PER_SPAWN = 3;
-    float spawnMaskTimer = 5;
+
     static int round = 1;
     static int TOTAL_ROUNDS = 5;
     public static bool maskCollectingPhase;
@@ -21,9 +21,12 @@ public class game_states : MonoBehaviour
     public static bool gameEnded;
     public static float gameTimer = 0;
     public static TextMeshProUGUI gameEndText;
+    // Mask Collection
     const float MASK_COLLECTING_TIME = 30;
     static float maskCollectingTimer;
-
+    const int MASKS_PER_SPAWN = 3;
+    float spawnMaskTimer = 5;
+    public static Image maskBG1; public static Image maskBG2; public static Image maskBG3;
     public static GameObject currentBattleEnemy;
     public static List<GameObject> hiddenEnemies = new List<GameObject>();
 
@@ -38,6 +41,9 @@ public class game_states : MonoBehaviour
         map = GameObject.Find("Map");
         gameEndText = GameObject.Find("Game End Text").GetComponent<TextMeshProUGUI>();
         gameEndText.enabled = false;
+        maskBG1 = GameObject.Find("Mask Inventory 1").GetComponent<Image>();
+        maskBG2 = GameObject.Find("Mask Inventory 2").GetComponent<Image>();
+        maskBG3 = GameObject.Find("Mask Inventory 3").GetComponent<Image>();
         prepPhase = true;
         maskCollectingPhase = true;
         maskCollectingTimer = 10f;
@@ -78,7 +84,7 @@ public class game_states : MonoBehaviour
     }
 
     /** When the player wins a battle, enemy is destroyed and the upgrade UI is shown. */
-    public static void OnPlayerWon(enemy defeatedEnemy)
+    public static IEnumerator OnPlayerWon(enemy defeatedEnemy)
     {
         if (defeatedEnemy != null) 
         {
@@ -86,6 +92,7 @@ public class game_states : MonoBehaviour
         }
         
         currentBattleEnemy = null;
+        yield return new WaitForSeconds(1);
         UpgradeUI.Show();
         
     }
@@ -127,6 +134,7 @@ public class game_states : MonoBehaviour
                 TriggerGameEnd();
             }
             player.activeMask = 0;
+            maskBG1.color = Color.white; maskBG2.color = Color.white; maskBG3.color = Color.white;
             character.transform.position = Vector3.zero;
             prepPhase = true;
             maskCollectingPhase = true;

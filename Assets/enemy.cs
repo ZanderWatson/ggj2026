@@ -114,6 +114,14 @@ public class enemy : MonoBehaviour
         Vector2 beforeMove = transform.position;
         transform.position = Vector2.MoveTowards(transform.position, randomPosition, Time.deltaTime * randomSpeed);
         Vector2 afterMove = transform.position;
+
+        Vector2 moveDirection = afterMove - beforeMove;
+
+        if (moveDirection.sqrMagnitude > 0.0001f)
+        {
+            transform.up = moveDirection;
+        }
+
         if (beforeMove.Equals(afterMove))
         {
             moveTimer = 0;
@@ -147,7 +155,7 @@ public class enemy : MonoBehaviour
         StartCoroutine(HurtColor());
         if (health <= 0)
         {
-            game_states.OnPlayerWon(this);
+            StartCoroutine(game_states.OnPlayerWon(this));
             Destroy(gameObject);
         }
     }
