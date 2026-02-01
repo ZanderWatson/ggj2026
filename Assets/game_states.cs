@@ -90,7 +90,7 @@ public class game_states : MonoBehaviour
     }
 
     /** When the player wins a battle, enemy is destroyed and the upgrade UI is shown. */
-    public static IEnumerator OnPlayerWon(enemy defeatedEnemy)
+    public static void OnPlayerWon(enemy defeatedEnemy)
     {
         if (defeatedEnemy != null) 
         {
@@ -98,7 +98,7 @@ public class game_states : MonoBehaviour
         }
         
         currentBattleEnemy = null;
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         UpgradeUI.Show();
         
     }
