@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -115,7 +116,33 @@ public class player : MonoBehaviour
                 }
             }
         }
+        // Press 1, 2, or 3 to get rid of the mask in that slot
+        if (Input.GetKeyDown(KeyCode.Alpha1) && game_states.prepPhase)
+        {
+            if (maskInventory.Count > 0)
+            {
+                maskInventory.RemoveAt(0);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && game_states.prepPhase)
+        {
+            if (maskInventory.Count > 1)
+            {
+                maskInventory.RemoveAt(1);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && game_states.prepPhase)
+        {
+            if (maskInventory.Count > 2)
+            {
+                maskInventory.RemoveAt(2);
+            }
+        }
         // Update inventory
+        for (int i = 2; i >= maskInventory.Count; i--)
+        {
+            maskImages[i].color = Color.clear;
+        }
         for (int i = 0; i < maskInventory.Count; i++)
         {
             maskImages[i].color = Color.white;
@@ -237,6 +264,7 @@ public class player : MonoBehaviour
         if (!isInvincible && amount > 0)
         {
             health -= amount * damageTakenMultiplier;
+            StartCoroutine(HurtColor());
         }
         if (amount < 0)
         {
@@ -260,5 +288,11 @@ public class player : MonoBehaviour
         {
             healthBarFill.fillAmount = 1f;
         }
+    IEnumerator HurtColor()
+    {
+        SpriteRenderer sprite = playerSprite.GetComponent<SpriteRenderer>();
+        sprite.color = new Color(0.98f, 0.49f, 0.5f);
+        yield return new WaitForSeconds(0.2f);
+        sprite.color = new Color(1, 1, 1);
     }
 }
