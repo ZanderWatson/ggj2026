@@ -55,6 +55,13 @@ public class SkiMask : MonoBehaviour
         player.speed *= spMultiplier; // Increase player speed. 
         player.attackPower *= attackPower; // Reduce player's attack power. 
 
+        // Particle System activate
+        ParticleSystem playerParticles = GameObject.Find("Particles").GetComponent<ParticleSystem>();
+        var main = playerParticles.main;
+        main.startColor = Color.black;
+        main.duration = 4;
+        playerParticles.Play();
+
         // Wait for duration of invincibility before continuing code execution: 
         yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 
 

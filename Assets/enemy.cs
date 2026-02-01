@@ -28,7 +28,6 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         character = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (health <= 0) health = maxHealth;
@@ -149,7 +148,6 @@ public class enemy : MonoBehaviour
         if (health <= 0)
         {
             game_states.OnPlayerWon(this);
-            game_states.SwitchPhases();
             Destroy(gameObject);
         }
     }

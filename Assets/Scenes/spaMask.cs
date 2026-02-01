@@ -50,8 +50,15 @@ public class SpaMask : MonoBehaviour
         float coolTime = cooldownTime - (level - 1) * 0.5f; // -0.5s cooldown per level. 
 
         // Enable mask effects: 
-        player.speed *= speedMultiplier; // Reduce player speed. 
+        player.speed *= speedMultiplier; // Increase player speed. 
         player.damageTakenMultiplier *= spaDamageTakenMultiplier; // Increase damage taken. 
+
+        // Particle System activate
+        ParticleSystem playerParticles = GameObject.Find("Particles").GetComponent<ParticleSystem>();
+        var main = playerParticles.main;
+        main.startColor = Color.skyBlue;
+        main.duration = 4;
+        playerParticles.Play();
 
         // Wait for duration of speed increase before continuing code execution: 
         yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 

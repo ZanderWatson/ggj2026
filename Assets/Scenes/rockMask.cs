@@ -52,8 +52,14 @@ public class RockMask : MonoBehaviour
         player.speed *= speedMultiplier; // Reduce player speed. 
         player.isInvincible = true; // Set player's invincibility flag to true. 
 
-        // Wait for duration of invincibility before continuing code execution:
-        yield return new WaitForSeconds(duration); // Pauses code execution for set duration. 
+        // Particle System activate
+        ParticleSystem playerParticles = GameObject.Find("Particles").GetComponent<ParticleSystem>();
+        var main = playerParticles.main;
+        main.startColor = Color.brown;
+        main.duration = 4;
+        playerParticles.Play();
+
+        yield return new WaitForSeconds(duration); 
 
         // Disable mask effects after invincibility duration:
         player.speed = originalSpeed;

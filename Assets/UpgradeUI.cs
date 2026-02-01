@@ -25,7 +25,7 @@ public class UpgradeUI : MonoBehaviour
     {
         if (panel != null) { panel.SetActive(true); return; }
 
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
             var go = new GameObject("Upgrade Canvas");

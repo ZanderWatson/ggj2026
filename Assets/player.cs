@@ -40,24 +40,20 @@ public class player : MonoBehaviour
     float acceleration = 1;
     const float MAX_SPEED = 6;
     bool up; bool left; bool right; bool down;
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
     void Start()
     {
         speed = 8;
         health = 100;
-        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         healthBarFill = GameObject.Find("Health Bar Fill").GetComponent<Image>();
+        enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         maskImages.Add(mask1); maskImages.Add(mask2); maskImages.Add(mask3);
         while (maskLevels.Count < 3) maskLevels.Add(1);
 
         // Testing with the Bandana Mask by default: REMOVE LATER
         if (maskInventory.Count == 0)
         {
-            maskInventory.Add(3); // Start with bandana mask by default. 
-            activeMask = 3;
+            //maskInventory.Add(3); // Start with bandana mask by default. 
+            //activeMask = 3;
         }
     }
 
@@ -92,6 +88,7 @@ public class player : MonoBehaviour
         // Press F key to challenge an enemy
         if (Input.GetKeyDown(KeyCode.F))
         {
+            enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
             float minDistanceToEnemy = float.MaxValue;
             GameObject closestEnemy = null;
             foreach (GameObject enemy in enemies)
@@ -245,6 +242,7 @@ public class player : MonoBehaviour
         {
             health -= amount;
         }
+        health = Mathf.Clamp(health, 0, 100);
         if (healthBarFill != null) 
         {
             healthBarFill.fillAmount = Mathf.Clamp(health / 100, 0, 1);

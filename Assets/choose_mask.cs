@@ -22,6 +22,10 @@ public class choose_mask : MonoBehaviour
     RockMask rock;
     HospitalMask hospital;
     SkiMask ski;
+    SpaMask spa;
+    GasMask gas;
+    TikiMask tiki;
+
     void Start()
     {
         character = GameObject.Find("Player");
@@ -29,6 +33,9 @@ public class choose_mask : MonoBehaviour
         rock = character.GetComponent<RockMask>();
         hospital = character.GetComponent<HospitalMask>();
         ski = character.GetComponent<SkiMask>();
+        spa = character.GetComponent<SpaMask>();
+        gas = character.GetComponent<GasMask>();
+        tiki = character.GetComponent<TikiMask>();
     }
 
     void Update()
@@ -89,28 +96,34 @@ public class choose_mask : MonoBehaviour
                 StartCoroutine(StartDuel());
                 choseMask = true;
                 shouldCycle = false;
-                if (one)
+                if (one && player.maskInventory.Count > 0)
                 {
                     player.activeMask = player.maskInventory[0];
                 }
                 else if (two && player.maskInventory.Count > 1)
                 {
                     player.activeMask = player.maskInventory[1];
-                } else if (three && player.maskInventory.Count > 2)
+                } 
+                else if (three && player.maskInventory.Count > 2)
                 {
                     player.activeMask = player.maskInventory[2];
                 }
+                Debug.Log("Active mask is: " + player.activeMask);
             }
         }
         
         // Updating mask selection
         if (player.activeMask == 0)
-        {
-            bandana.enabled = false;
+        {   
             rock.enabled = false;
-            hospital.enabled = false;
             ski.enabled = false;
-        } else if (player.activeMask == 1)
+            bandana.enabled = false;
+            hospital.enabled = false;
+            spa.enabled = false;
+            gas.enabled = false;
+            tiki.enabled = false;
+        } 
+        else if (player.activeMask == 1)
         {
             rock.enabled = true;
         }
@@ -125,6 +138,18 @@ public class choose_mask : MonoBehaviour
         else if (player.activeMask == 4)
         {
             hospital.enabled = true;
+        }
+        else if (player.activeMask == 5)
+        {
+            spa.enabled = true;
+        }
+        else if (player.activeMask == 6)
+        {
+            gas.enabled = true;
+        }
+        else if (player.activeMask == 7)
+        {
+            tiki.enabled = true;
         }
     }
 

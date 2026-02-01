@@ -44,7 +44,12 @@ public class HospitalMask : MonoBehaviour
         isOnCooldown = true; // Set cooldown flag for ability. 
         int level = player.GetMaskLevel(4); // Hospital = type 4
         float heal = hpRestore + (level - 1) * 5f; // +5 HP per level
-
+        // Particle System activate
+        ParticleSystem playerParticles = GameObject.Find("Particles").GetComponent<ParticleSystem>();
+        var main = playerParticles.main;
+        main.startColor = Color.lightGreen;
+        main.duration = 2;
+        playerParticles.Play();
         // Enable mask effects: 
         player.takeDamage(-heal); // Restore HP (negative damage). 
 

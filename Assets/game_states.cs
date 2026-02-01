@@ -19,19 +19,12 @@ public class game_states : MonoBehaviour
     static float maskCollectingTimer;
 
     public static GameObject currentBattleEnemy;
-    public static System.Collections.Generic.List<GameObject> hiddenEnemies = new System.Collections.Generic.List<GameObject>();
+    public static List<GameObject> hiddenEnemies = new List<GameObject>();
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        if (GetComponent<UpgradeUI>() == null) 
-        {
-            gameObject.AddComponent<UpgradeUI>();
-        }
-        if (GetComponent<EnemyHealthBar>() == null) 
-        {
-            gameObject.AddComponent<EnemyHealthBar>();
-        }
+        if (GetComponent<UpgradeUI>() == null) gameObject.AddComponent<UpgradeUI>();
+        if (GetComponent<EnemyHealthBar>() == null) gameObject.AddComponent<EnemyHealthBar>();
     }
     void Start()
     {
@@ -112,7 +105,7 @@ public class game_states : MonoBehaviour
             character.transform.position = Vector3.zero;
             prepPhase = true;
             duelPhase = false;
-            map.GetComponent<SpriteRenderer>().color = new Color(38 / 255, 91 / 255, 72 / 255);
+            map.GetComponent<SpriteRenderer>().color = Color.forestGreen;
         }
     }
 }
