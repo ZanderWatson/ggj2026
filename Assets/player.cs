@@ -252,4 +252,13 @@ public class player : MonoBehaviour
             SceneManager.LoadScene("Main Menu");
         }
     }
+
+    public void RestoreFullHealth() // Method to restore player's HP after each fight (every fight starts anew). 
+    {
+        health = 100;
+        if (healthBarFill != null) 
+        {
+            healthBarFill.fillAmount = 1f;
+        }
+    }
 }

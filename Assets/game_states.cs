@@ -87,6 +87,14 @@ public class game_states : MonoBehaviour
             }
         }
         hiddenEnemies.Clear();
+        if (character != null)
+        {
+            player p = character.GetComponent<player>();
+            if (p != null) 
+            {
+                p.RestoreFullHealth(); // Restore player's HP after each fight (every fight starts anew).
+            }
+        }
         SwitchPhases();
     }
 
