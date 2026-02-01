@@ -1,5 +1,4 @@
 using System.Linq;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class mask : MonoBehaviour
@@ -37,6 +36,7 @@ public class mask : MonoBehaviour
         if (Vector2.Distance(character.transform.position, transform.position) < 0.2f && player.maskInventory.Count < 3)
         {
             player.maskInventory.Add(maskType);
+            if (player.maskLevels.Count < player.maskInventory.Count) player.maskLevels.Add(1);
             Destroy(gameObject);
         }
         // Enemy picks up mask

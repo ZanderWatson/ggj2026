@@ -42,11 +42,13 @@ public class HospitalMask : MonoBehaviour
     private IEnumerator ActivateHospitalMask()
     {
         isOnCooldown = true; // Set cooldown flag for ability. 
+        int level = player.GetMaskLevel(4); // Hospital = type 4
+        float heal = hpRestore + (level - 1) * 5f; // +5 HP per level
 
         // Enable mask effects: 
-        player.takeDamage(-hpRestore);
+        player.takeDamage(-heal); // Restore HP (negative damage). 
 
-        // Start cooldown timer before ability can be used again:: 
+        // Start cooldown timer before ability can be used again:
         yield return new WaitForSeconds(cooldownTime); // Pauses code execution for cooldown duration. 
 
         isOnCooldown = false; // Allow ability to be used again. 

@@ -14,6 +14,7 @@ public class enemy : MonoBehaviour
     public bool hasMask = false;
     public int enemyMaskType = 0;
     public float health;
+    public float maxHealth = 100f;
     Vector2 randomPosition;
     float randomSpeed;
     float moveTimer = 3;
@@ -31,7 +32,10 @@ public class enemy : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         character = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (health <= 0) health = maxHealth;
     }
+
+    public float GetHealthPercent() => Mathf.Clamp01(health / maxHealth);
     void Update()
     {
         // Attacks
@@ -145,7 +149,7 @@ public class enemy : MonoBehaviour
         StartCoroutine(HurtColor());
         if (health <= 0)
         {
-            Destroy(gameObject);
+            game_states.OnPlayerWon(this);
         }
     }
 

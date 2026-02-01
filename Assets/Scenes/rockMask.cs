@@ -44,14 +44,14 @@ public class RockMask : MonoBehaviour
 
     private IEnumerator ActivateRockMask()
     {
-        isOnCooldown = true; // Set cooldown flag for ability. 
+        isOnCooldown = true;
+        int level = player.GetMaskLevel(1); // Rock = type 1
+        float duration = abilityDuration + (level - 1) * 0.5f; // +0.5s per level
 
-        // Enable mask effects: 
-        player.speed *= speedMultiplier; // Reduce player speed. 
-        player.isInvincible = true; // Set player's invincibility flag to true. 
+        player.speed *= speedMultiplier;
+        player.isInvincible = true;
 
-        // Wait for duration of invincibility before continuing code execution: 
-        yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 
+        yield return new WaitForSeconds(duration); 
 
         // Disable mask effects after invincibility duration:
         player.speed = originalSpeed;

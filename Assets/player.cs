@@ -23,6 +23,7 @@ public class player : MonoBehaviour
     // Mask inventory variables
     public static int activeMask = 0;
     public static List<int> maskInventory = new List<int>();
+    public static List<int> maskLevels = new List<int> { 1, 1, 1 }; // Default mask levels are 1. 
     public Image mask1; public Image mask2; public Image mask3;
     public static List<Image> maskImages = new List<Image>();
     public Sprite rockMask; public Sprite skiMask; public Sprite bandanaMask; public Sprite hospitalMask; public Sprite spaMask;
@@ -50,12 +51,13 @@ public class player : MonoBehaviour
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         healthBarFill = GameObject.Find("Health Bar Fill").GetComponent<Image>();
         maskImages.Add(mask1); maskImages.Add(mask2); maskImages.Add(mask3);
+        while (maskLevels.Count < 3) maskLevels.Add(1);
 
-        // Testing with the Tiki Mask by default: REMOVE LATER
+        // Testing with the Bandana Mask by default: REMOVE LATER
         if (maskInventory.Count == 0)
         {
-            maskInventory.Add(7); // Start with tiki mask by default. 
-            activeMask = 7;
+            maskInventory.Add(3); // Start with bandana mask by default. 
+            activeMask = 3;
         }
     }
 
@@ -103,12 +105,15 @@ public class player : MonoBehaviour
             }
             if (minDistanceToEnemy <= 3)
             {
+                game_states.currentBattleEnemy = closestEnemy;
+                game_states.hiddenEnemies.Clear();
                 choose_mask.chooseMaskForDuel();
                 foreach (GameObject enemy in enemies)
                 {
                     if (!enemy.Equals(closestEnemy))
                     {
                         enemy.SetActive(false);
+                        game_states.hiddenEnemies.Add(enemy);
                     }
                 }
             }
@@ -211,6 +216,18 @@ public class player : MonoBehaviour
         }
     }
 
+    public static int GetMaskLevel(int maskType)
+    {
+        for (int i = 0; i < maskInventory.Count; i++)
+        {
+            if (maskInventory[i] == maskType)
+            {
+                return i < maskLevels.Count ? maskLevels[i] : 1;
+            }
+        }
+        return 1;
+    }
+
     public void takeDamage(float amount)
     {
         if (!isInvincible && amount > 0)
@@ -221,7 +238,10 @@ public class player : MonoBehaviour
         {
             health -= amount;
         }
-        healthBarFill.fillAmount = Mathf.Clamp(health / 100, 0, 1);
+        if (healthBarFill != null) 
+        {
+            healthBarFill.fillAmount = Mathf.Clamp(health / 100, 0, 1);
+        }
         if (health <= 0)
         {
             SceneManager.LoadScene("Main Menu");

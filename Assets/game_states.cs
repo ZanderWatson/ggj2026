@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class game_states : MonoBehaviour
 {
@@ -16,9 +18,14 @@ public class game_states : MonoBehaviour
     const float MASK_COLLECTING_TIME = 30;
     static float maskCollectingTimer;
 
+    public static GameObject currentBattleEnemy;
+    public static System.Collections.Generic.List<GameObject> hiddenEnemies = new System.Collections.Generic.List<GameObject>();
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        if (GetComponent<UpgradeUI>() == null) gameObject.AddComponent<UpgradeUI>();
+        if (GetComponent<EnemyHealthBar>() == null) gameObject.AddComponent<EnemyHealthBar>();
     }
     void Start()
     {
@@ -58,9 +65,25 @@ public class game_states : MonoBehaviour
         }
         
     }
+    public static void OnPlayerWon(enemy defeatedEnemy)
+    {
+        if (defeatedEnemy != null) Object.Destroy(defeatedEnemy.gameObject);
+        currentBattleEnemy = null;
+        UpgradeUI.Show();
+    }
+
+    public static void FinishPostBattle()
+    {
+        foreach (GameObject e in hiddenEnemies)
+        {
+            if (e != null) e.SetActive(true);
+        }
+        hiddenEnemies.Clear();
+        SwitchPhases();
+    }
+
     public static void SwitchPhases()
     {
-        
         if (prepPhase)
         {
             character.transform.position = new Vector3(-5, 0, 0);
