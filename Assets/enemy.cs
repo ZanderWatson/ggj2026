@@ -156,7 +156,7 @@ public class enemy : MonoBehaviour
         StartCoroutine(HurtColor());
         if (health <= 0)
         {
-            StartCoroutine(game_states.OnPlayerWon(this));
+            game_states.OnPlayerWon(this);
         }
     }
 
