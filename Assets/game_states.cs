@@ -12,7 +12,7 @@ public class game_states : MonoBehaviour
     public GameObject mask;
     static GameObject map;
 
-    static int round = 1;
+    public static int round = 1;
     static int TOTAL_ROUNDS = 5;
     public static bool maskCollectingPhase;
     public static bool prepPhase;

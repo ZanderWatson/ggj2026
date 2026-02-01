@@ -194,6 +194,11 @@ public class player : MonoBehaviour
         // return to menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            game_states.gameTimer = 0;
+
+            game_states.maskCollectingPhase = true; 
+            game_states.round = 1; 
+            
             SceneManager.LoadScene("Main Menu");
         }
     }
@@ -309,6 +314,9 @@ public class player : MonoBehaviour
         if (health <= 0)
         {
             game_states.gameTimer = 0;
+
+            game_states.maskCollectingPhase = true; 
+            game_states.round = 1; 
             SceneManager.LoadScene("Main Menu");
         }
     }
