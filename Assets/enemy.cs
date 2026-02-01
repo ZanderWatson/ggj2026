@@ -157,7 +157,6 @@ public class enemy : MonoBehaviour
         if (health <= 0)
         {
             StartCoroutine(game_states.OnPlayerWon(this));
-            Destroy(gameObject);
         }
     }
 

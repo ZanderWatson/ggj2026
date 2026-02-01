@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fee1460230eb31f44b0a0d191c193ba8
+guid: 325c60bc137fede41ae257b6f62f11cf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -365302140618905204
-    second: dragonfly1_0
+      213: -9216629222620425677
+    second: dragonfly attack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dragonfly1_0
+      name: dragonfly attack_0
       rect:
         serializedVersion: 2
-        x: 44
-        y: 44
-        width: 412
-        height: 387
-      alignment: 9
-      pivot: {x: 0.4980414, y: 0.7053755}
+        x: 64
+        y: 54
+        width: 372
+        height: 397
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8968b873af2eeaf0800000000000000
-      internalID: -365302140618905204
+      spriteID: 3329937cd84f71080800000000000000
+      internalID: -9216629222620425677
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4a4ce83268028c645b4d3a93f1d97124
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dragonfly1_0: -365302140618905204
+      dragonfly attack_0: -9216629222620425677
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

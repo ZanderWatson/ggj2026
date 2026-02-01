@@ -20,6 +20,7 @@ public class game_states : MonoBehaviour
     // Game end
     public static bool gameEnded;
     public static float gameTimer = 0;
+    public static TextMeshProUGUI gameTimerText;
     public static TextMeshProUGUI gameEndText;
     // Mask Collection
     const float MASK_COLLECTING_TIME = 30;
@@ -40,6 +41,7 @@ public class game_states : MonoBehaviour
         character = GameObject.Find("Player");
         map = GameObject.Find("Map");
         gameEndText = GameObject.Find("Game End Text").GetComponent<TextMeshProUGUI>();
+        gameTimerText = GameObject.Find("Game Timer").GetComponent<TextMeshProUGUI>();
         gameEndText.enabled = false;
         maskBG1 = GameObject.Find("Mask Inventory 1").GetComponent<Image>();
         maskBG2 = GameObject.Find("Mask Inventory 2").GetComponent<Image>();
@@ -80,6 +82,10 @@ public class game_states : MonoBehaviour
         {
             gameTimer += Time.deltaTime;
         }
+        int minutes = Mathf.FloorToInt(gameTimer / 60);
+        int seconds = Mathf.FloorToInt(gameTimer % 60);
+        gameTimerText.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
+            
         
     }
 
@@ -146,6 +152,8 @@ public class game_states : MonoBehaviour
     public static void TriggerGameEnd()
     {
         gameEndText.enabled = true;
-        gameEndText.text = "You won in " + Mathf.Floor(gameTimer / 60) + ":" + (int) gameTimer % 60;
+        int minutes = Mathf.FloorToInt(gameTimer / 60);
+        int seconds = Mathf.FloorToInt(gameTimer % 60);
+        gameEndText.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
     }
 }

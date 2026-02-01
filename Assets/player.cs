@@ -15,7 +15,7 @@ public class player : MonoBehaviour
     public float chargeTimeRequired = 1f;
     public float normalPunchCooldown = 0.3f;
     public float chargedPunchCooldown = 0.5f;
-
+    Vector2 punchDirection;
     [NonSerialized] public bool isInvincible = false;
     [NonSerialized] public float damageTakenMultiplier = 1;
     [NonSerialized] public float attackPower = 1;
@@ -34,6 +34,9 @@ public class player : MonoBehaviour
     float punchCooldownTimer;
     float chargeHoldTimer;
     bool isChargingPunch;
+    public GameObject punchSprite;
+    public Animator punchAnimator;
+    public bool isPunching = false;
     // Movement variables
     [NonSerialized] public float speed;
     public GameObject playerSprite;
@@ -89,7 +92,7 @@ public class player : MonoBehaviour
         }
 
         // Press F key to challenge an enemy
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && game_states.prepPhase)
         {
             enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
             float minDistanceToEnemy = float.MaxValue;
@@ -181,7 +184,20 @@ public class player : MonoBehaviour
                 maskImages[i].sprite = tikiMask;
             }
         }
-
+        // Fix sprite direction when attacking
+        if (isPunching)
+        {
+            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            punchDirection = (mouseWorld - (Vector2)transform.position).normalized;
+            if (punchDirection == Vector2.zero) punchDirection = velocity.normalized != Vector2.zero ? velocity.normalized : Vector2.up;
+            float angle = Mathf.Atan2(punchDirection.y, punchDirection.x) * Mathf.Rad2Deg;
+            playerSprite.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+        }
+        // return to menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
     }
     private void FixedUpdate()
     {
@@ -206,7 +222,7 @@ public class player : MonoBehaviour
         velocity = Vector2.MoveTowards(velocity, Vector2.zero, 0.5f);
         transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)velocity * Time.fixedDeltaTime, velocity.magnitude * Time.fixedDeltaTime);
         // face towards velocity direction
-        if (!velocity.Equals(Vector3.zero))
+        if (!velocity.Equals(Vector3.zero) && !isPunching)
         {
             float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             playerSprite.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
@@ -229,16 +245,17 @@ public class player : MonoBehaviour
     {
         if (game_states.duelPhase == false) return; // Only punch during battle
 
-        // Punch direction: toward mouse
-        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 punchDirection = (mouseWorld - (Vector2)transform.position).normalized;
-        if (punchDirection == Vector2.zero) punchDirection = velocity.normalized != Vector2.zero ? velocity.normalized : Vector2.up;
-
+        Vector2 punchPosition = (Vector2)transform.position + punchDirection * (punchRange * 0.5f);
+        StartCoroutine(ShowPunchAnim(punchDirection, isCharged));
+    }
+    IEnumerator ShowPunchAnim(Vector2 direction, bool isCharged)
+    {
+        punchAnimator.SetTrigger("Attack");
+        isPunching = true;
+        yield return new WaitForSeconds(0.33f);
         // Hitbox: circle in front of player
         Vector2 punchPosition = (Vector2)transform.position + punchDirection * (punchRange * 0.5f);
         Collider2D[] hits = Physics2D.OverlapCircleAll(punchPosition, punchRange * 0.5f);
-        // Debug
-        StartCoroutine(showPunchCircle(punchPosition));
         float damage = (isCharged ? chargedPunchDamage : normalPunchDamage) * attackPower;
 
         Debug.Log("PUNCH DAMAGE: " + damage); 
@@ -251,13 +268,8 @@ public class player : MonoBehaviour
                 e.takeDamage(damage);
             }
         }
-    }
-    IEnumerator showPunchCircle(Vector2 pos)
-    {
-        circle.transform.position = pos;
-        circle.GetComponent<SpriteRenderer>().enabled = true;
-        yield return new WaitForSeconds(0.1f);
-        circle.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(0.33f);
+        isPunching = false;
     }
 
     public static int GetMaskLevel(int maskType)
