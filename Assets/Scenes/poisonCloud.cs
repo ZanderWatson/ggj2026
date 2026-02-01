@@ -9,7 +9,9 @@ public class poisonCloud : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, cloudDuration); // Auto-destroy the cloud after its duration. 
+        int level = player.GetMaskLevel(6); // Gas = Type 6. 
+        Destroy(gameObject, cloudDuration + (level - 1) * 0.5f); // Auto-destroy the cloud after its duration. 
+        // +0.5s duration per level. 
     }
 
     private void Awake()

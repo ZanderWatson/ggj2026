@@ -8,7 +8,8 @@ public class enemy : MonoBehaviour
     public float normalPunchDamage = 2f;
     public float chargedPunchDamage = 5f;
     public float punchCooldown = 1f;
-    public float chargeChance = 0.3f; // 30% chance to charge before punching. 
+    public float chargeChance = 0.3f; // 30% chance to charge before punching.
+    [System.NonSerialized] public float attackPower = 1; 
 
     GameObject character;
     public bool hasMask = false;
@@ -128,7 +129,7 @@ public class enemy : MonoBehaviour
         Vector2 punchPosition = (Vector2)transform.position + punchDirection * (punchRange * 0.5f);
         Collider2D[] hits = Physics2D.OverlapCircleAll(punchPosition, punchRange * 0.5f);
 
-        float damage = isCharged ? chargedPunchDamage : normalPunchDamage;
+        float damage = (isCharged ? chargedPunchDamage : normalPunchDamage) * attackPower;
 
         foreach (Collider2D hit in hits)
         {

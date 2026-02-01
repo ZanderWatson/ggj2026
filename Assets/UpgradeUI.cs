@@ -1,3 +1,5 @@
+// Ethan Le (1/31/2026): UpgradeUI.cs
+
 // Shows upgrade panel when player wins a battle. Player picks a mask from inventory to upgrade.
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +60,7 @@ public class UpgradeUI : MonoBehaviour
 
         string[] maskNames = { "", "Rock", "Ski", "Bandana", "Hospital", "Spa", "Gas", "Tiki" };
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) // Show the 3 upgrade buttons for the masks in the player's inventory: 
         {
             var btnObj = new GameObject("Upgrade Button " + (i + 1));
             btnObj.transform.SetParent(panel.transform, false);
@@ -95,7 +97,7 @@ public class UpgradeUI : MonoBehaviour
         if (slot >= 0 && slot < player.maskInventory.Count)
         {
             while (player.maskLevels.Count <= slot) player.maskLevels.Add(1);
-            player.maskLevels[slot]++;
+            player.maskLevels[slot]++; // Only upgrade the mask at that SPECIFIC inventory slot.
         }
         panel.SetActive(false);
         game_states.FinishPostBattle();
@@ -105,7 +107,7 @@ public class UpgradeUI : MonoBehaviour
     {
         if (panel != null && panel.activeSelf && upgradeButtons.Count == 3)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++) // Update text of the upgrade buttons to show mask type and their current level. 
             {
                 string label = "Slot " + (i + 1);
                 if (i < player.maskInventory.Count)

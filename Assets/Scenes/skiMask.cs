@@ -48,9 +48,11 @@ public class SkiMask : MonoBehaviour
     private IEnumerator ActivateSkiMask()
     {
         isOnCooldown = true; // Set cooldown flag for ability. 
+        int level = player.GetMaskLevel(2); // Ski = Type 2. 
+        float spMultiplier = speedMultiplier + (level - 1) * 0.2f; // +0.2x speed per level. 
 
         // Enable mask effects: 
-        player.speed *= speedMultiplier; // Reduce player speed. 
+        player.speed *= spMultiplier; // Increase player speed. 
         player.attackPower *= attackPower; // Reduce player's attack power. 
 
         // Wait for duration of invincibility before continuing code execution: 

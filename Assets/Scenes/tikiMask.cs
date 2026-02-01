@@ -53,6 +53,8 @@ public class TikiMask : MonoBehaviour
     private IEnumerator ActivateTikiMask()
     {
         isOnCooldown = true; // Set cooldown flag for ability. 
+        int level = player.GetMaskLevel(7); // Tiki: Type 7. 
+        float mult = player.attackPower + (level - 1) * 0.2f; // +0.2x Projectile Attack Power per level. 
 
         // Get player facing vector:
         Vector2 facingVector = player.velocity.normalized;
@@ -80,7 +82,7 @@ public class TikiMask : MonoBehaviour
             if (projScript != null) // Safety check. 
             {
                 // Launch the projectile in the specified direction with dragonfly's attack power: 
-                projScript.LaunchDirection(direction, player.attackPower, projectileSpeed); // Consistent speed in specified direction. 
+                projScript.LaunchDirection(direction, player.chargedPunchDamage * mult, projectileSpeed); // Consistent speed in specified direction. 
             }
         }
 

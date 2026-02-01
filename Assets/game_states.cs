@@ -24,8 +24,14 @@ public class game_states : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        if (GetComponent<UpgradeUI>() == null) gameObject.AddComponent<UpgradeUI>();
-        if (GetComponent<EnemyHealthBar>() == null) gameObject.AddComponent<EnemyHealthBar>();
+        if (GetComponent<UpgradeUI>() == null) 
+        {
+            gameObject.AddComponent<UpgradeUI>();
+        }
+        if (GetComponent<EnemyHealthBar>() == null) 
+        {
+            gameObject.AddComponent<EnemyHealthBar>();
+        }
     }
     void Start()
     {
@@ -65,18 +71,27 @@ public class game_states : MonoBehaviour
         }
         
     }
+
+    /** When the player wins a battle, enemy is destroyed and the upgrade UI is shown. */
     public static void OnPlayerWon(enemy defeatedEnemy)
     {
-        if (defeatedEnemy != null) Object.Destroy(defeatedEnemy.gameObject);
+        if (defeatedEnemy != null) 
+        {
+            Object.Destroy(defeatedEnemy.gameObject);
+        }
+        
         currentBattleEnemy = null;
         UpgradeUI.Show();
     }
 
-    public static void FinishPostBattle()
+    public static void FinishPostBattle() 
     {
         foreach (GameObject e in hiddenEnemies)
         {
-            if (e != null) e.SetActive(true);
+            if (e != null) 
+            {
+                e.SetActive(true);
+            }
         }
         hiddenEnemies.Clear();
         SwitchPhases();

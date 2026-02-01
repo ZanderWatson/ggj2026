@@ -46,6 +46,8 @@ public class SpaMask : MonoBehaviour
     private IEnumerator ActivateSpaMask()
     {
         isOnCooldown = true; // Set cooldown flag for ability. 
+        int level = player.GetMaskLevel(5); // Spa: Type 5. 
+        float coolTime = cooldownTime - (level - 1) * 0.5f; // -0.5s cooldown per level. 
 
         // Enable mask effects: 
         player.speed *= speedMultiplier; // Reduce player speed. 
@@ -58,8 +60,8 @@ public class SpaMask : MonoBehaviour
         player.speed = originalSpeed;
         player.damageTakenMultiplier = 1f;
 
-        // Start cooldown timer before ability can be used again:: 
-        yield return new WaitForSeconds(cooldownTime); // Pauses code execution for cooldown duration. 
+        // Start cooldown timer before ability can be used again:
+        yield return new WaitForSeconds(coolTime); // Pauses code execution for cooldown duration. 
 
         isOnCooldown = false; // Allow ability to be used again. 
     }
