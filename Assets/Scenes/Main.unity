@@ -313,10 +313,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8800ca0744212a94aa55685e8214000b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  punchRange: 1.5
+  normalPunchDamage: 2
+  chargedPunchDamage: 5
+  punchCooldown: 1
+  chargeChance: 0.3
   hasMask: 0
   enemyMaskType: 0
   health: 100
-  projectile: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
+  projectile: {fileID: 0}
 --- !u!4 &259882140
 Transform:
   m_ObjectHideFlags: 0
@@ -609,10 +614,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8800ca0744212a94aa55685e8214000b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  punchRange: 1.5
+  normalPunchDamage: 2
+  chargedPunchDamage: 5
+  punchCooldown: 1
+  chargeChance: 0.3
   hasMask: 0
   enemyMaskType: 0
   health: 100
-  projectile: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
+  projectile: {fileID: 0}
 --- !u!4 &295248588
 Transform:
   m_ObjectHideFlags: 0
@@ -829,10 +839,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8800ca0744212a94aa55685e8214000b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  punchRange: 1.5
+  normalPunchDamage: 2
+  chargedPunchDamage: 5
+  punchCooldown: 1
+  chargeChance: 0.3
   hasMask: 0
   enemyMaskType: 0
   health: 100
-  projectile: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
+  projectile: {fileID: 0}
 --- !u!4 &358244753
 Transform:
   m_ObjectHideFlags: 0
@@ -1408,10 +1423,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8800ca0744212a94aa55685e8214000b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  punchRange: 1.5
+  normalPunchDamage: 2
+  chargedPunchDamage: 5
+  punchCooldown: 1
+  chargeChance: 0.3
   hasMask: 0
   enemyMaskType: 0
   health: 100
-  projectile: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
+  projectile: {fileID: 0}
 --- !u!4 &995911769
 Transform:
   m_ObjectHideFlags: 0
@@ -1441,8 +1461,10 @@ GameObject:
   - component: {fileID: 1024993713}
   - component: {fileID: 1024993708}
   - component: {fileID: 1024993712}
-  - component: {fileID: 1024993713}
   - component: {fileID: 1024993714}
+  - component: {fileID: 1024993715}
+  - component: {fileID: 1024993716}
+  - component: {fileID: 1024993717}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -1521,8 +1543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4189b515b6259bf4f85a38a7c02804f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  projectile: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
-  health: 0
+  punchRange: 1.5
+  normalPunchDamage: 2
+  chargedPunchDamage: 5
+  chargeTimeRequired: 1
+  normalPunchCooldown: 0.3
+  chargedPunchCooldown: 0.5
   mask1: {fileID: 0}
   mask2: {fileID: 0}
   mask3: {fileID: 0}
@@ -1533,6 +1559,7 @@ MonoBehaviour:
   spaMask: {fileID: 0}
   gasMask: {fileID: 0}
   tikiMask: {fileID: 0}
+  velocity: {x: 0, y: 0}
 --- !u!4 &1024993710
 Transform:
   m_ObjectHideFlags: 0
@@ -1684,6 +1711,24 @@ MonoBehaviour:
   cooldownTime: 10
   abilityKey: 101
   useMouseButton: 0
+  maskObject: {fileID: 0}
+--- !u!114 &1024993717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024993707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7b1ad3721f5184cbda188265a8a909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TikiMask
+  projectilePrefab: {fileID: 3983604021034379793, guid: a2609f2c1642a3040a3cf6d0923cfc27, type: 3}
+  projectileSpeed: 10
+  cooldownTime: 10
+  abilityKey: 101
+  useMouseButton: 1
   maskObject: {fileID: 0}
 --- !u!1 &1184882599
 GameObject:
@@ -2054,10 +2099,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8800ca0744212a94aa55685e8214000b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  punchRange: 1.5
+  normalPunchDamage: 2
+  chargedPunchDamage: 5
+  punchCooldown: 1
+  chargeChance: 0.3
   hasMask: 0
   enemyMaskType: 0
   health: 100
-  projectile: {fileID: 3983604021034379793, guid: a35d42de0c84a3944b943774b3b55425, type: 3}
+  projectile: {fileID: 0}
 --- !u!4 &1890356699
 Transform:
   m_ObjectHideFlags: 0

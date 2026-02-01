@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
+    [Header("Melee Settings")]
+    public float punchRange = 1.5f;
+    public float normalPunchDamage = 2f;
+    public float chargedPunchDamage = 5f;
+    public float punchCooldown = 1f;
+    public float chargeChance = 0.3f; // 30% chance to charge before punching. 
+
     GameObject character;
     public bool hasMask = false;
     public int enemyMaskType = 0;
@@ -10,11 +17,15 @@ public class enemy : MonoBehaviour
     Vector2 randomPosition;
     float randomSpeed;
     float moveTimer = 3;
+    float punchCooldownTimer;
+    float chargeHoldTimer;
+    bool isChargingPunch;
     SpriteRenderer spriteRenderer;
     // attacking variables
     float attackSpeedTimer;
     [SerializeField] GameObject projectile;
     float projSpeed = 10;
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -23,22 +34,44 @@ public class enemy : MonoBehaviour
     }
     void Update()
     {
-        // attacks
-        if (game_states.duelPhase)
+        // Attacks
+        punchCooldownTimer -= Time.deltaTime;
+
+        // Melee: in duel phase, punch when in range
+        if (game_states.duelPhase && character != null)
         {
-            attackSpeedTimer -= Time.deltaTime;
-            if (attackSpeedTimer <= 0)
+            float distToPlayer = Vector2.Distance(transform.position, character.transform.position);
+
+            if (isChargingPunch)
             {
-                attackSpeedTimer = Random.Range(0.4f, 0.6f);
-                GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
-                proj.SetActive(true);
-                proj.GetComponent<Rigidbody2D>().AddForce((character.transform.position - transform.position + (Vector3) Random.insideUnitCircle).normalized * projSpeed, ForceMode2D.Impulse);
-                proj.name = "enemy_basic_projectile";
-                Destroy(proj, 3);
+                chargeHoldTimer += Time.deltaTime;
+                if (chargeHoldTimer >= 1f)
+                {
+                    PerformPunch(true);
+                    punchCooldownTimer = punchCooldown;
+                    isChargingPunch = false;
+                }
+                return; // Don't move while charging
+            }
+
+            if (distToPlayer <= punchRange && punchCooldownTimer <= 0)
+            {
+                if (Random.value < chargeChance)
+                {
+                    isChargingPunch = true;
+                    chargeHoldTimer = 0f;
+                }
+                else
+                {
+                    PerformPunch(false);
+                    punchCooldownTimer = punchCooldown;
+                }
+                return;
             }
         }
 
-        // movement
+        
+        // Movement
         Vector3 playerDirection = Vector3.zero;
         Vector3 maskDirection = Vector3.zero;
         if (game_states.prepPhase)
@@ -85,12 +118,24 @@ public class enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void PerformPunch(bool isCharged)
     {
-        if (game_states.duelPhase && collision.gameObject.name.Contains("player_basic_projectile"))
+        if (character == null) return;
+
+        Vector2 punchDirection = ((Vector2)character.transform.position - (Vector2)transform.position).normalized;
+        Vector2 punchPosition = (Vector2)transform.position + punchDirection * (punchRange * 0.5f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(punchPosition, punchRange * 0.5f);
+
+        float damage = isCharged ? chargedPunchDamage : normalPunchDamage;
+
+        foreach (Collider2D hit in hits)
         {
-            takeDamage(3);
-            Destroy(collision.gameObject, 0.03f);
+            player p = hit.GetComponent<player>();
+            if (p != null)
+            {
+                p.takeDamage(damage);
+                break;
+            }
         }
     }
 

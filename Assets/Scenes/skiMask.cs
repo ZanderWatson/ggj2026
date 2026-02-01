@@ -1,5 +1,5 @@
 // Ethan Le (1/30/2026): skiMask.cs
-// Allows player to use the Ski Mask's ability: 1.5x speed but reduces attack power by 50%. 
+// Allows player to use the Ski Mask's ability: 1.5x speed but reduces attack power by 25%. 
 using System.Collections;
 using UnityEngine;
 

@@ -1,12 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
-    public GameObject projectile;
+    [Header("Melee Settings")]
+    public float punchRange = 1.5f;
+    public float normalPunchDamage = 2f;
+    public float chargedPunchDamage = 5f;
+    public float chargeTimeRequired = 1f;
+    public float normalPunchCooldown = 0.3f;
+    public float chargedPunchCooldown = 0.5f;
 
     [NonSerialized] public bool isInvincible = false;
     [NonSerialized] public float damageTakenMultiplier = 1;
@@ -22,11 +29,13 @@ public class player : MonoBehaviour
     public Sprite gasMask; public Sprite tikiMask;
     // Attacking variables
     List<GameObject> enemies;
-    float attackSpeedTimer;
+    float punchCooldownTimer;
+    float chargeHoldTimer;
+    bool isChargingPunch;
     // Movement variables
     [NonSerialized] public float speed;
     float projSpeed = 10;
-    Vector2 velocity = Vector2.zero;
+    public Vector2 velocity = Vector2.zero;
     float acceleration = 1;
     const float MAX_SPEED = 6;
     bool up; bool left; bool right; bool down;
@@ -41,6 +50,13 @@ public class player : MonoBehaviour
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         healthBarFill = GameObject.Find("Health Bar Fill").GetComponent<Image>();
         maskImages.Add(mask1); maskImages.Add(mask2); maskImages.Add(mask3);
+
+        // Testing with the Tiki Mask by default: REMOVE LATER
+        if (maskInventory.Count == 0)
+        {
+            maskInventory.Add(7); // Start with tiki mask by default. 
+            activeMask = 7;
+        }
     }
 
     void Update()
@@ -50,18 +66,27 @@ public class player : MonoBehaviour
         left = Input.GetKey(KeyCode.A);
         down = Input.GetKey(KeyCode.S);
         right = Input.GetKey(KeyCode.D);
-        // Shooting
-        attackSpeedTimer -= Time.deltaTime;
-        if (Input.GetMouseButton(0) && attackSpeedTimer <= 0)
+        // Melee (punch) - tap for normal, hold ~1 sec for charged punch
+        punchCooldownTimer -= Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0) && punchCooldownTimer <= 0)
         {
-            attackSpeedTimer = 0.5f;
-            Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
-            proj.SetActive(true);
-            proj.GetComponent<Rigidbody2D>().AddForce((mouse - new Vector2(transform.position.x, transform.position.y)).normalized * projSpeed, ForceMode2D.Impulse);
-            proj.name = "player_basic_projectile";
-            Destroy(proj, 3);
+            isChargingPunch = true;
+            chargeHoldTimer = 0f;
         }
+
+        if (isChargingPunch)
+        {
+            chargeHoldTimer += Time.deltaTime;
+            if (Input.GetMouseButtonUp(0))
+            {
+                bool wasCharged = chargeHoldTimer >= chargeTimeRequired;
+                PerformPunch(wasCharged);
+                punchCooldownTimer = wasCharged ? chargedPunchCooldown : normalPunchCooldown;
+                isChargingPunch = false;
+            }
+        }
+
         // Press F key to challenge an enemy
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -153,9 +178,36 @@ public class player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Contains("enemy_basic_projectile")) {
+        if (collision.gameObject.name.Contains("enemy_basic_projectile"))
+        {
             takeDamage(5);
             Destroy(collision.gameObject, 0.03f);
+        }
+    }
+
+    // Perform a punch attack (mouse left-click):
+    void PerformPunch(bool isCharged)
+    {
+        if (game_states.duelPhase == false) return; // Only punch during battle
+
+        // Punch direction: toward mouse
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 punchDirection = (mouseWorld - (Vector2)transform.position).normalized;
+        if (punchDirection == Vector2.zero) punchDirection = velocity.normalized != Vector2.zero ? velocity.normalized : Vector2.up;
+
+        // Hitbox: circle in front of player
+        Vector2 punchPosition = (Vector2)transform.position + punchDirection * (punchRange * 0.5f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(punchPosition, punchRange * 0.5f);
+
+        float damage = (isCharged ? chargedPunchDamage : normalPunchDamage) * attackPower;
+
+        foreach (Collider2D hit in hits)
+        {
+            enemy e = hit.GetComponent<enemy>();
+            if (e != null)
+            {
+                e.takeDamage(damage);
+            }
         }
     }
 
