@@ -44,7 +44,7 @@ public class HospitalMask : MonoBehaviour
         isOnCooldown = true; // Set cooldown flag for ability. 
 
         // Enable mask effects: 
-        player.health += hpRestore; // Restore the player's health. 
+        player.takeDamage(-hpRestore);
 
         // Start cooldown timer before ability can be used again:: 
         yield return new WaitForSeconds(cooldownTime); // Pauses code execution for cooldown duration. 

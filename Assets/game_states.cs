@@ -6,7 +6,8 @@ public class game_states : MonoBehaviour
 {
     static GameObject character;
     public GameObject mask;
-    const int MASKS_PER_SPAWN = 2;
+    static GameObject map;
+    const int MASKS_PER_SPAWN = 3;
     float spawnMaskTimer = 5;
     static int round = 1;
     public static bool maskCollectingPhase;
@@ -22,6 +23,7 @@ public class game_states : MonoBehaviour
     void Start()
     {
         character = GameObject.Find("Player");
+        map = GameObject.Find("Map");
         prepPhase = true;
         maskCollectingPhase = true;
         maskCollectingTimer = 10f;
@@ -41,8 +43,8 @@ public class game_states : MonoBehaviour
                     spawnMaskTimer = 5;
                     foreach (int i in Enumerable.Range(1, MASKS_PER_SPAWN))
                     {
-                        Vector2 randomSpawn = Random.insideUnitCircle * 25;
-                        Instantiate(mask, randomSpawn, Quaternion.identity);
+                        Vector2 randomSpawn = Random.insideUnitCircle * 24;
+                        GameObject newMask = Instantiate(mask, randomSpawn, Quaternion.identity);
                     }
                 }
                 // Disable mask collecting phase to stop masks from spawning
@@ -59,19 +61,19 @@ public class game_states : MonoBehaviour
     public static void SwitchPhases()
     {
         
-        if (SceneManager.GetActiveScene().name.Equals("Main"))
+        if (prepPhase)
         {
             character.transform.position = new Vector3(-5, 0, 0);
             prepPhase = false;
             duelPhase = true;
-            SceneManager.LoadScene("Battle");
-        } else if (SceneManager.GetActiveScene().name.Equals("Battle"))
+            map.GetComponent<SpriteRenderer>().color = Color.darkRed;
+        } else if (duelPhase)
         {
             round += 1;
             character.transform.position = Vector3.zero;
             prepPhase = true;
             duelPhase = false;
-            SceneManager.LoadScene("Main");
+            map.GetComponent<SpriteRenderer>().color = new Color(38 / 255, 91 / 255, 72 / 255);
         }
     }
 }

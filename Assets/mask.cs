@@ -6,6 +6,8 @@ public class mask : MonoBehaviour
 {
     public GameObject character;
     SpriteRenderer spriteRenderer;
+    GameObject enemyToFollow;
+    bool followingEnemy = false;
     bool followingPlayer = false;
     int maskType;
     public Sprite rockMask; public Sprite skiMask; public Sprite bandanaMask; public Sprite hospitalMask; public Sprite spaMask;
@@ -27,21 +29,63 @@ public class mask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(character.transform.position, transform.position) < 1.5f && player.maskInventory.Count < 3)
+        if (game_states.duelPhase)
         {
-            followingPlayer = true;
-        } 
+            Destroy(gameObject);
+        }
+        // track player if they are close and inventory isn't full
         if (Vector2.Distance(character.transform.position, transform.position) < 0.2f && player.maskInventory.Count < 3)
         {
             player.maskInventory.Add(maskType);
             Destroy(gameObject);
         }
+        // Enemy picks up mask
+        if (enemyToFollow != null)
+        {
+            enemy enemyToFollowScript = enemyToFollow.GetComponent<enemy>();
+            if (Vector2.Distance(enemyToFollow.transform.position, transform.position) < 0.2f && !enemyToFollowScript.hasMask)
+            {
+                enemyToFollowScript.enemyMaskType = maskType;
+                enemyToFollowScript.hasMask = true;
+                Destroy(gameObject);
+            }
+        }
+        
+
     }
     private void FixedUpdate()
     {
         if (followingPlayer)
         {
             transform.position = Vector3.MoveTowards(transform.position, character.transform.position, 0.5f);
+        }
+        if (followingEnemy)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, enemyToFollow.transform.position, 0.5f);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 3 && player.maskInventory.Count < 3)
+        {
+            followingPlayer = true;
+        }
+        if (collision.gameObject.layer == 7 && !collision.gameObject.GetComponent<enemy>().hasMask)
+        {
+            enemyToFollow = collision.gameObject;
+            followingEnemy = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 3 && player.maskInventory.Count < 3)
+        {
+            followingEnemy = false;
+        }
+        if (collision.gameObject.layer == 7 && !collision.gameObject.GetComponent<enemy>().hasMask)
+        {
+            enemyToFollow = collision.gameObject;
+            followingEnemy = false;
         }
     }
 }

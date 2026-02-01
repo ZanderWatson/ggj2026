@@ -1,35 +1,34 @@
-using NUnit.Framework;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Diagnostics.Tracing;
-using System.Runtime.Serialization.Formatters;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
     public GameObject projectile;
-    [NonSerialized] public float speed;
+
     [NonSerialized] public bool isInvincible = false;
     [NonSerialized] public float damageTakenMultiplier = 1;
     [NonSerialized] public float attackPower = 1;
-    public float health;
-    float projSpeed = 10;
-    public Vector2 velocity = Vector2.zero;
-    float acceleration = 1;
-    const float MAX_SPEED = 4;
+    float health;
+    Image healthBarFill;
+    // Mask inventory variables
+    public static int activeMask = 0;
     public static List<int> maskInventory = new List<int>();
     public Image mask1; public Image mask2; public Image mask3;
     public static List<Image> maskImages = new List<Image>();
     public Sprite rockMask; public Sprite skiMask; public Sprite bandanaMask; public Sprite hospitalMask; public Sprite spaMask;
     public Sprite gasMask; public Sprite tikiMask;
+    // Attacking variables
     List<GameObject> enemies;
     float attackSpeedTimer;
-
+    // Movement variables
+    [NonSerialized] public float speed;
+    float projSpeed = 10;
+    Vector2 velocity = Vector2.zero;
+    float acceleration = 1;
+    const float MAX_SPEED = 6;
     bool up; bool left; bool right; bool down;
     private void Awake()
     {
@@ -40,6 +39,7 @@ public class player : MonoBehaviour
         speed = 8;
         health = 100;
         enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+        healthBarFill = GameObject.Find("Health Bar Fill").GetComponent<Image>();
         maskImages.Add(mask1); maskImages.Add(mask2); maskImages.Add(mask3);
     }
 
@@ -54,14 +54,15 @@ public class player : MonoBehaviour
         attackSpeedTimer -= Time.deltaTime;
         if (Input.GetMouseButton(0) && attackSpeedTimer <= 0)
         {
-            attackSpeedTimer = 0.25f;
+            attackSpeedTimer = 0.5f;
             Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject proj = Instantiate(projectile, transform.position, Quaternion.identity);
             proj.SetActive(true);
             proj.GetComponent<Rigidbody2D>().AddForce((mouse - new Vector2(transform.position.x, transform.position.y)).normalized * projSpeed, ForceMode2D.Impulse);
+            proj.name = "player_basic_projectile";
             Destroy(proj, 3);
         }
-        // Press F key to challenge and enemy
+        // Press F key to challenge an enemy
         if (Input.GetKeyDown(KeyCode.F))
         {
             float minDistanceToEnemy = float.MaxValue;
@@ -75,9 +76,9 @@ public class player : MonoBehaviour
                     closestEnemy = enemy;
                 }
             }
-            if (minDistanceToEnemy <= 1)
+            if (minDistanceToEnemy <= 3)
             {
-                game_states.SwitchPhases();
+                choose_mask.chooseMaskForDuel();
                 foreach (GameObject enemy in enemies)
                 {
                     if (!enemy.Equals(closestEnemy))
@@ -87,7 +88,7 @@ public class player : MonoBehaviour
                 }
             }
         }
-        // Manage inventory
+        // Update inventory
         for (int i = 0; i < maskInventory.Count; i++)
         {
             maskImages[i].color = Color.white;
@@ -150,12 +151,25 @@ public class player : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)velocity * Time.fixedDeltaTime, velocity.magnitude * Time.fixedDeltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Contains("enemy_basic_projectile")) {
+            takeDamage(5);
+            Destroy(collision.gameObject, 0.03f);
+        }
+    }
+
     public void takeDamage(float amount)
     {
-        if (!isInvincible)
+        if (!isInvincible && amount > 0)
         {
             health -= amount * damageTakenMultiplier;
         }
+        if (amount < 0)
+        {
+            health -= amount;
+        }
+        healthBarFill.fillAmount = Mathf.Clamp(health / 100, 0, 1);
         if (health <= 0)
         {
             SceneManager.LoadScene("Main Menu");

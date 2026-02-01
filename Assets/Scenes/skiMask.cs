@@ -9,7 +9,7 @@ public class SkiMask : MonoBehaviour
     public float abilityDuration = 4f;
     public float speedMultiplier = 1.5f;
     public float cooldownTime = 10f;
-    public float attackPower = 0.5f; // Reduce attack power by half. 
+    public float attackPower = 0.75f; // Reduce attack power by half. 
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 

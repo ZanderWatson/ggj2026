@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private float damage; // Damage this projectile will deal. 
+    public float damage = 15; // Damage this projectile will deal. 
     private Vector2 target; // Target position to move toward. 
     private float speed; // Projectile speed. 
     private Rigidbody2D rb; // Rigidbody2D component reference for physics movement. 
 
-    void Awake() // Called when the script instance is being loaded. 
+    void Awake() // Called when the script instance is being loaded.
     {
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component. 
         if (rb == null) // Safety check. 
