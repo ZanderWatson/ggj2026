@@ -23,8 +23,8 @@ public class game_states : MonoBehaviour
     public static TextMeshProUGUI gameTimerText;
     public static TextMeshProUGUI gameEndText;
     // Mask Collection
-    const float MASK_COLLECTING_TIME = 30;
-    static float maskCollectingTimer;
+    public const float MASK_COLLECTING_TIME = 15;
+    public static float maskCollectingTimer;
     const int MASKS_PER_SPAWN = 3;
     float spawnMaskTimer = 5;
     public static Image maskBG1; public static Image maskBG2; public static Image maskBG3;
@@ -48,7 +48,7 @@ public class game_states : MonoBehaviour
         maskBG3 = GameObject.Find("Mask Inventory 3").GetComponent<Image>();
         prepPhase = true;
         maskCollectingPhase = true;
-        maskCollectingTimer = 10f;
+        maskCollectingTimer = 15f;
     }
 
     // Update is called once per frame
@@ -130,7 +130,7 @@ public class game_states : MonoBehaviour
             character.transform.position = new Vector3(-5, 0, 0);
             prepPhase = false;
             duelPhase = true;
-            map.GetComponent<SpriteRenderer>().color = new Color(255 / 255, 149 / 255, 149 / 255);
+            map.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 149f / 255f, 149f / 255f);
         } else if (duelPhase)
         {
             round += 1;
@@ -143,6 +143,7 @@ public class game_states : MonoBehaviour
             character.transform.position = Vector3.zero;
             prepPhase = true;
             maskCollectingPhase = true;
+            maskCollectingTimer = MASK_COLLECTING_TIME;
             duelPhase = false;
             map.GetComponent<SpriteRenderer>().color = Color.white;
         }

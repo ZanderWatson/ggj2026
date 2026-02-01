@@ -66,7 +66,7 @@ public class player : MonoBehaviour
         // Melee (punch) - tap for normal, hold ~1 sec for charged punch
         punchCooldownTimer -= Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0) && punchCooldownTimer <= 0)
+        if (Input.GetMouseButtonDown(0) && punchCooldownTimer <= 0 && game_states.duelPhase && !game_states.prepPhase)
         {
             isChargingPunch = true;
             chargeHoldTimer = 0f;
@@ -195,9 +195,9 @@ public class player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             game_states.gameTimer = 0;
-
+            game_states.maskCollectingTimer = game_states.MASK_COLLECTING_TIME;
             game_states.maskCollectingPhase = true; 
-            game_states.round = 1; 
+            game_states.round = 1;
             
             SceneManager.LoadScene("Main Menu");
         }
@@ -314,7 +314,7 @@ public class player : MonoBehaviour
         if (health <= 0)
         {
             game_states.gameTimer = 0;
-
+            game_states.maskCollectingTimer = game_states.MASK_COLLECTING_TIME;
             game_states.maskCollectingPhase = true; 
             game_states.round = 1; 
             SceneManager.LoadScene("Main Menu");
