@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.47, y: 2.16, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,13 +107,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   character: {fileID: 0}
-  rockMask: {fileID: -2182124076254010665, guid: 9540cb75f507a8c4bbb765e1025f6bcb, type: 3}
-  skiMask: {fileID: 8134904377534331900, guid: 45d3cebb7f1b1ab4981c4a4bb21e7c53, type: 3}
-  bandanaMask: {fileID: 5440146050597846734, guid: 1cd7e75dd234a4a46a030c1675b2a114, type: 3}
-  hospitalMask: {fileID: 8802559959546800957, guid: 5cf84e2f238d90d4ea07bff7caf58c4b, type: 3}
-  spaMask: {fileID: 8889529330312335514, guid: db0e8f195559d7d4994e45f41853a022, type: 3}
-  gasMask: {fileID: -2827147315405241775, guid: 9d8871c2b6cad544398f6e6a3e1c41fb, type: 3}
-  tikiMask: {fileID: 3165346419817426150, guid: 676660fe2ccaba248ab3e8345fb8898a, type: 3}
+  rockMask: {fileID: -8334678197314617069, guid: 57d7ab8c2c2f4e340baf84c8bf83f366, type: 3}
+  skiMask: {fileID: -3176536449208518258, guid: 195808de9a693b44eb8986933c05a294, type: 3}
+  bandanaMask: {fileID: 8543282579073522754, guid: 105786acf020baa4f9f170d049909dbd, type: 3}
+  hospitalMask: {fileID: -7918698140010856851, guid: 94426d252192f24439c2db79b3c7fc28, type: 3}
+  spaMask: {fileID: -858346464717191229, guid: ef10a161855ff8e4482f697f26dbdb88, type: 3}
+  gasMask: {fileID: 1278430170897915419, guid: 4264426af8fd2dc44ba6e11f9a205267, type: 3}
+  tikiMask: {fileID: -3047889392355451319, guid: 26ec763097d6d5449874636f5d1003a1, type: 3}
 --- !u!50 &6893275706602173863
 Rigidbody2D:
   serializedVersion: 5

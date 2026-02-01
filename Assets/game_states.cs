@@ -85,7 +85,6 @@ public class game_states : MonoBehaviour
         int minutes = Mathf.FloorToInt(gameTimer / 60);
         int seconds = Mathf.FloorToInt(gameTimer % 60);
         gameTimerText.text = string.Format("{0:D2}:{1:D2}", minutes, seconds);
-            
         
     }
 
