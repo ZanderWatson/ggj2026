@@ -15,6 +15,7 @@ public class player : MonoBehaviour
     public GameObject projectile;
     [NonSerialized] public float speed;
     [NonSerialized] public bool isInvincible = false;
+    [NonSerialized] public float damageTakenMultiplier = 1;
     [NonSerialized] public float attackPower = 1;
     public float health;
     float projSpeed = 10;
@@ -153,7 +154,7 @@ public class player : MonoBehaviour
     {
         if (!isInvincible)
         {
-            health -= amount;
+            health -= amount * damageTakenMultiplier;
         }
         if (health <= 0)
         {
