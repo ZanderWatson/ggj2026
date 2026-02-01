@@ -44,7 +44,7 @@ public class GasMask : MonoBehaviour
         isOnCooldown = true; // Set cooldown flag for ability. 
 
         // Enable mask effects: 
-        Instantiate(poisonCloudPrefab, player.transform.position, Quaternion.identity); // Spawn poison cloud at player's position. 
+        Instantiate(poisonCloudPrefab, transform.position, Quaternion.identity); // Spawn poison cloud at player's position. 
 
         // Start cooldown timer before ability can be used again:: 
         yield return new WaitForSeconds(cooldownTime); // Pauses code execution for cooldown duration. 

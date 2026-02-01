@@ -18,7 +18,7 @@ public class player : MonoBehaviour
     [NonSerialized] public float attackPower = 1;
     public float health;
     float projSpeed = 10;
-    Vector2 velocity = Vector2.zero;
+    public Vector2 velocity = Vector2.zero;
     float acceleration = 1;
     const float MAX_SPEED = 4;
     public static List<int> maskInventory = new List<int>();

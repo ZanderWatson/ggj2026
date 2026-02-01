@@ -1,8 +1,8 @@
-// Ethan Le (1/30/2026): bandanaProjectile.cs 
-// Handles projectile movement and damage for the Bandana Mask ability. 
+// Ethan Le (1/30/2026): Projectile.cs 
+// Handles projectile movement and damage for the Bandana and Spa Mask abilities. 
 using UnityEngine;
 
-public class BandanaProjectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     private float damage; // Damage this projectile will deal. 
     private Vector2 target; // Target position to move toward. 
@@ -31,5 +31,13 @@ public class BandanaProjectile : MonoBehaviour
 
         // Destroy projectile after 4 seconds to prevent lingering: 
         Destroy(gameObject, 4f);
+    }
+
+    // Launch direction property:
+    public void LaunchDirection(Vector2 direction, float attackPower, float projectileSpeed)
+    {
+        damage = attackPower; // Set projectile damage. 
+        rb.linearVelocity = direction.normalized * projectileSpeed; // Set Rigidbody2D velocity to move projectile with consistent speed. 
+        Destroy(gameObject, 4f); // Destroy projectile after 4 seconds to prevent lingering. 
     }
 }
