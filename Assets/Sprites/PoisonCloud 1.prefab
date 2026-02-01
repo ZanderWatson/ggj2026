@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4447817146357547179}
   - component: {fileID: 4994862245848697409}
   m_Layer: 0
-  m_Name: PoisonCloud
+  m_Name: PoisonCloud 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
