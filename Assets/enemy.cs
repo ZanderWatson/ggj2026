@@ -152,6 +152,7 @@ public class enemy : MonoBehaviour
     public void takeDamage(float amount)
     {
         health -= amount;
+        Debug.Log("Enemy took: " + amount + " damage!");
         StartCoroutine(HurtColor());
         if (health <= 0)
         {

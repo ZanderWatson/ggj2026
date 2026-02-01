@@ -55,8 +55,8 @@ public class player : MonoBehaviour
         // Testing with the Bandana Mask by default: REMOVE LATER
         if (maskInventory.Count == 0)
         {
-            //maskInventory.Add(6); // Start with bandana mask by default. 
-            //activeMask = 6;
+            maskInventory.Add(7); // Start with bandana mask by default. 
+            activeMask = 7;
         }
     }
 
@@ -241,6 +241,8 @@ public class player : MonoBehaviour
         StartCoroutine(showPunchCircle(punchPosition));
         float damage = (isCharged ? chargedPunchDamage : normalPunchDamage) * attackPower;
 
+        Debug.Log("PUNCH DAMAGE: " + damage); 
+
         foreach (Collider2D hit in hits)
         {
             enemy e = hit.GetComponent<enemy>();
@@ -274,6 +276,7 @@ public class player : MonoBehaviour
     {
         if (!isInvincible && amount > 0)
         {
+            Debug.Log("Damage taken by enemy: " + (amount * damageTakenMultiplier));
             health -= amount * damageTakenMultiplier;
         }
         if (amount < 0)

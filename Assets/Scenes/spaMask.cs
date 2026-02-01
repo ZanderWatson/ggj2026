@@ -9,7 +9,7 @@ public class SpaMask : MonoBehaviour
     public float abilityDuration = 4f;
     public float speedMultiplier = 2f;
     public float spaDamageTakenMultiplier = 2f;
-    public float cooldownTime = 10f;
+    public float cooldownTime = 7f;
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 
@@ -52,6 +52,7 @@ public class SpaMask : MonoBehaviour
         // Enable mask effects: 
         player.maxSpeed *= speedMultiplier; // Increase player speed. 
         player.damageTakenMultiplier *= spaDamageTakenMultiplier; // Increase damage taken. 
+        Debug.Log("Fast speed: " + player.maxSpeed); 
 
         // Particle System activate
         ParticleSystem playerParticles = GameObject.Find("Particles").GetComponent<ParticleSystem>();

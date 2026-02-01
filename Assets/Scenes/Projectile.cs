@@ -41,15 +41,6 @@ public class Projectile : MonoBehaviour
     // Handle projectile vs projectile cancellation and damage. 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Projectile vs projectile: cancel both
-        Projectile otherProj = collision.GetComponent<Projectile>();
-        if (otherProj != null)
-        {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
-            return;
-        }
-
         if (isPlayerProjectile)
         {
             enemy e = collision.GetComponent<enemy>();
@@ -59,6 +50,17 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        
+        /*
+        // Projectile vs projectile: cancel both (not included currently)
+        Projectile otherProj = collision.GetComponent<Projectile>();
+        if (otherProj != null)
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+            return;
+        }
+
         else
         {
             player p = collision.GetComponent<player>();
@@ -68,5 +70,6 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        */
     }
 }

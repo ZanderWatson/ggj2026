@@ -8,7 +8,7 @@ public class SkiMask : MonoBehaviour
     [Header("Ability Settings")]
     public float abilityDuration = 4f;
     public float speedMultiplier = 1.5f;
-    public float cooldownTime = 10f;
+    public float cooldownTime = 7f;
     public float attackPower = 0.75f; // Reduce attack power by half. 
 
     [Header("Activation Key")]
@@ -54,6 +54,7 @@ public class SkiMask : MonoBehaviour
         // Enable mask effects: 
         player.maxSpeed *= spMultiplier; // Increase player speed. 
         player.attackPower *= attackPower; // Reduce player's attack power. 
+        Debug.Log("Fast speed: " + player.maxSpeed); 
 
         // Particle System activate
         ParticleSystem playerParticles = GameObject.Find("Particles").GetComponent<ParticleSystem>();

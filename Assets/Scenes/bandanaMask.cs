@@ -8,7 +8,7 @@ public class BandanaMask : MonoBehaviour
     [Header("Ability Settings")]
     public GameObject projectilePrefab; // Assign the projectile prefab in the Unity Inspector. 
     public float projectileSpeed = 15f; // Speed the projectile is launched at. 
-    public float cooldownTime = 10f;
+    public float cooldownTime = 3f;
     public float attackPowerMultiplier = 2f; // Multiplier for attack power for the mask's projectile shot. 
 
     [Header("Activation Key")]
@@ -69,6 +69,7 @@ public class BandanaMask : MonoBehaviour
         Projectile bp = projectile.GetComponent<Projectile>(); // Get the Projectile script component. 
         if (bp != null)
         {
+            Debug.Log("Damage dealt: " + player.chargedPunchDamage * (player.attackPower * mult)); 
             bp.Launch(mouseWorldPosition, player.chargedPunchDamage * (player.attackPower * mult), projectileSpeed); // Launch the projectile towards the mouse position with player's attack power. 
         }
 

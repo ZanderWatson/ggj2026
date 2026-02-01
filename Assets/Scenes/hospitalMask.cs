@@ -52,6 +52,7 @@ public class HospitalMask : MonoBehaviour
         playerParticles.Play();
         // Enable mask effects: 
         player.takeDamage(-heal); // Restore HP (negative damage). 
+        Debug.Log("Healed: " + (heal)); 
 
         // Start cooldown timer before ability can be used again:
         yield return new WaitForSeconds(cooldownTime); // Pauses code execution for cooldown duration. 

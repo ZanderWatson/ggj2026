@@ -8,7 +8,7 @@ public class RockMask : MonoBehaviour
     [Header("Ability Settings")]
     public float abilityDuration = 4f;
     public float speedMultiplier = 0.5f;
-    public float cooldownTime = 10f;
+    public float cooldownTime = 7f;
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 
@@ -50,6 +50,7 @@ public class RockMask : MonoBehaviour
 
         // Enable mask effects: 
         player.maxSpeed *= speedMultiplier; // Reduce player speed. 
+        Debug.Log("Slowed speed: " + player.maxSpeed); 
         player.isInvincible = true; // Set player's invincibility flag to true. 
 
         // Particle System activate

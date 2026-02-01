@@ -8,7 +8,7 @@ public class TikiMask : MonoBehaviour
     [Header("Ability Settings")]
     public GameObject projectilePrefab; // Assign the projectile prefab in the Unity Inspector. 
     public float projectileSpeed = 10f; // Speed the projectile is launched at. 
-    public float cooldownTime = 10f;
+    public float cooldownTime = 5f;
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 
@@ -81,6 +81,7 @@ public class TikiMask : MonoBehaviour
 
             if (projScript != null) // Safety check. 
             {
+                Debug.Log("Damage dealt: " + player.chargedPunchDamage * mult); 
                 // Launch the projectile in the specified direction with dragonfly's attack power: 
                 projScript.LaunchDirection(direction, player.chargedPunchDamage * mult, projectileSpeed); // Consistent speed in specified direction. 
             }
