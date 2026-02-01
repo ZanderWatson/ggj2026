@@ -25,7 +25,7 @@ public class SkiMask : MonoBehaviour
     void Start()
     {
         player = GetComponent<player>(); // Get the player.cs script component. 
-        originalSpeed = player.speed; // Assign OG player speed to revert speed back later. 
+        originalSpeed = player.maxSpeed; // Assign OG player speed to revert speed back later. 
         originalAttackPower = player.attackPower; // Assign OG attack power to revert back later. 
     }
 
@@ -52,7 +52,7 @@ public class SkiMask : MonoBehaviour
         float spMultiplier = speedMultiplier + (level - 1) * 0.2f; // +0.2x speed per level. 
 
         // Enable mask effects: 
-        player.speed *= spMultiplier; // Increase player speed. 
+        player.maxSpeed *= spMultiplier; // Increase player speed. 
         player.attackPower *= attackPower; // Reduce player's attack power. 
 
         // Particle System activate
@@ -66,7 +66,7 @@ public class SkiMask : MonoBehaviour
         yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 
 
         // Disable mask effects after invincibility duration:
-        player.speed = originalSpeed;
+        player.maxSpeed = originalSpeed;
         player.attackPower = originalAttackPower; // Revert attack power back to original. 
 
         // Start cooldown timer before ability can be used again:: 

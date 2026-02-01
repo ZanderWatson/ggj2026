@@ -24,7 +24,7 @@ public class SpaMask : MonoBehaviour
     void Start()
     {
         player = GetComponent<player>(); // Get the player.cs script component. 
-        originalSpeed = player.speed; // Assign OG player speed to revert speed back later. 
+        originalSpeed = player.maxSpeed; // Assign OG player speed to revert speed back later. 
     }
 
     void Update()
@@ -50,7 +50,7 @@ public class SpaMask : MonoBehaviour
         float coolTime = cooldownTime - (level - 1) * 0.5f; // -0.5s cooldown per level. 
 
         // Enable mask effects: 
-        player.speed *= speedMultiplier; // Increase player speed. 
+        player.maxSpeed *= speedMultiplier; // Increase player speed. 
         player.damageTakenMultiplier *= spaDamageTakenMultiplier; // Increase damage taken. 
 
         // Particle System activate
@@ -64,7 +64,7 @@ public class SpaMask : MonoBehaviour
         yield return new WaitForSeconds(abilityDuration); // Pauses code execution for set duration. 
 
         // Disable mask effects after speed increase duration:
-        player.speed = originalSpeed;
+        player.maxSpeed = originalSpeed;
         player.damageTakenMultiplier = 1f;
 
         // Start cooldown timer before ability can be used again:

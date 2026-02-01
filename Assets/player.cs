@@ -39,7 +39,7 @@ public class player : MonoBehaviour
     public GameObject playerSprite;
     public Vector2 velocity = Vector2.zero;
     float acceleration = 1;
-    const float MAX_SPEED = 6;
+    public float maxSpeed = 6;
     bool up; bool left; bool right; bool down;
     void Start()
     {
@@ -200,7 +200,7 @@ public class player : MonoBehaviour
         {
             velocity += Vector2.right * acceleration;
         }
-        velocity = Vector2.ClampMagnitude(velocity, MAX_SPEED);
+        velocity = Vector2.ClampMagnitude(velocity, maxSpeed);
         velocity = Vector2.MoveTowards(velocity, Vector2.zero, 0.5f);
         transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)velocity * Time.fixedDeltaTime, velocity.magnitude * Time.fixedDeltaTime);
         // face towards velocity direction
