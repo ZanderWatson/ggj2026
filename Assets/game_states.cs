@@ -130,7 +130,7 @@ public class game_states : MonoBehaviour
             character.transform.position = new Vector3(-5, 0, 0);
             prepPhase = false;
             duelPhase = true;
-            map.GetComponent<SpriteRenderer>().color = Color.darkRed;
+            map.GetComponent<SpriteRenderer>().color = new Color(255 / 255, 149 / 255, 149 / 255);
         } else if (duelPhase)
         {
             round += 1;
@@ -144,7 +144,7 @@ public class game_states : MonoBehaviour
             prepPhase = true;
             maskCollectingPhase = true;
             duelPhase = false;
-            map.GetComponent<SpriteRenderer>().color = Color.forestGreen;
+            map.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
