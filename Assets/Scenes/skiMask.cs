@@ -13,7 +13,7 @@ public class SkiMask : MonoBehaviour
 
     [Header("Activation Key")]
     public KeyCode abilityKey = KeyCode.E; // In case players do not want to use the mouse. 
-    public bool useMouseButton = false; // Toggle for mouse input. 
+    public bool useMouseButton = true; // Toggle for mouse input. 
 
     private bool isOnCooldown = false;
     private player player;

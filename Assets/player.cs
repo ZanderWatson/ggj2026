@@ -16,7 +16,7 @@ public class player : MonoBehaviour
     [NonSerialized] public float speed;
     [NonSerialized] public bool isInvincible = false;
     [NonSerialized] public float attackPower = 1;
-    float health;
+    public float health;
     float projSpeed = 10;
     Vector2 velocity = Vector2.zero;
     float acceleration = 1;
@@ -93,7 +93,7 @@ public class player : MonoBehaviour
             if (maskInventory[i] == 0)
             {
                 maskImages[i].color = Color.clear;
-            } 
+            }
             else if (maskInventory[i] == 1)
             {
                 maskImages[i].sprite = rockMask;
