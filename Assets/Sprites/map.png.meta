@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5f4f5a72a6322974cbc56ff13c4b13da
+guid: 07855133e1d07734282cd1501d84980e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -567747797725528365
-    second: dragonflywithblackoutline_0
+      213: 4804446361586417100
+    second: map_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dragonflywithblackoutline_0
+      name: map_0
       rect:
         serializedVersion: 2
-        x: 44
-        y: 44
-        width: 412
-        height: 387
+        x: 0
+        y: 0
+        width: 1050
+        height: 1050
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3de3f82d264fe18f0800000000000000
-      internalID: -567747797725528365
+      spriteID: ccdb6c4c282dca240800000000000000
+      internalID: 4804446361586417100
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dragonflywithblackoutline_0: -567747797725528365
+      map_0: 4804446361586417100
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
