@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,9 +13,14 @@ public class game_states : MonoBehaviour
     const int MASKS_PER_SPAWN = 3;
     float spawnMaskTimer = 5;
     static int round = 1;
+    static int TOTAL_ROUNDS = 5;
     public static bool maskCollectingPhase;
     public static bool prepPhase;
     public static bool duelPhase;
+    // Game end
+    public static bool gameEnded;
+    public static float gameTimer = 0;
+    public static TextMeshProUGUI gameEndText;
     const float MASK_COLLECTING_TIME = 30;
     static float maskCollectingTimer;
 
@@ -30,6 +36,8 @@ public class game_states : MonoBehaviour
     {
         character = GameObject.Find("Player");
         map = GameObject.Find("Map");
+        gameEndText = GameObject.Find("Game End Text").GetComponent<TextMeshProUGUI>();
+        gameEndText.enabled = false;
         prepPhase = true;
         maskCollectingPhase = true;
         maskCollectingTimer = 10f;
@@ -62,6 +70,10 @@ public class game_states : MonoBehaviour
                 }
             }
         }
+        if (!gameEnded)
+        {
+            gameTimer += Time.deltaTime;
+        }
         
     }
 
@@ -75,6 +87,7 @@ public class game_states : MonoBehaviour
         
         currentBattleEnemy = null;
         UpgradeUI.Show();
+        
     }
 
     public static void FinishPostBattle() 
@@ -109,6 +122,10 @@ public class game_states : MonoBehaviour
         } else if (duelPhase)
         {
             round += 1;
+            if (round > TOTAL_ROUNDS)
+            {
+                TriggerGameEnd();
+            }
             player.activeMask = 0;
             character.transform.position = Vector3.zero;
             prepPhase = true;
@@ -116,5 +133,11 @@ public class game_states : MonoBehaviour
             duelPhase = false;
             map.GetComponent<SpriteRenderer>().color = Color.forestGreen;
         }
+    }
+
+    public static void TriggerGameEnd()
+    {
+        gameEndText.enabled = true;
+        gameEndText.text = "You won in " + Mathf.Floor(gameTimer / 60) + ":" + (int) gameTimer % 60;
     }
 }
