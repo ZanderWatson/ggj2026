@@ -51,7 +51,7 @@ public class UpgradeUI : MonoBehaviour
         Text titleText = title.AddComponent<Text>();
         titleText.text = "Victory! Choose a mask to upgrade:";
         titleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        titleText.fontSize = 24;
+        titleText.fontSize = 48;
         titleText.alignment = TextAnchor.MiddleCenter;
         RectTransform titleRt = title.GetComponent<RectTransform>();
         titleRt.anchorMin = new Vector2(0.1f, 0.7f);
@@ -79,7 +79,7 @@ public class UpgradeUI : MonoBehaviour
             int slot = i;
             btnText.text = "Slot " + (i + 1);
             btnText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            btnText.fontSize = 16;
+            btnText.fontSize = 28;
             btnText.alignment = TextAnchor.MiddleCenter;
             RectTransform textRt = textObj.GetComponent<RectTransform>();
             textRt.anchorMin = Vector2.zero;
@@ -90,6 +90,33 @@ public class UpgradeUI : MonoBehaviour
             int slotCopy = i;
             btn.onClick.AddListener(() => OnUpgradeClicked(slotCopy));
         }
+
+        // Skip Button to skip upgrading (if player chooses): 
+        var skipButton = new GameObject("Skip Button"); // Create GameObject for the skip button.
+        skipButton.transform.SetParent(panel.transform, false); // Set panel as "Skip Button" GameObject's parent. 
+        Button skipBtn = skipButton.AddComponent<Button>(); // Add Button as "Skip Button" GameObject's child. 
+        Image skipBtnImg = skipButton.AddComponent<Image>(); // Add Image as "Skip Button" GameObject's child. 
+        skipBtnImg.color = new Color(0.3f, 0.3f, 0.3f); // Set color of button image. 
+        RectTransform skipBtnRt = skipButton.GetComponent<RectTransform>(); // Get RectTransform component of "Skip Button" GameObject. 
+        skipBtnRt.anchorMin = new Vector2(0.35f, 0.05f); // Bottom Center.
+        skipBtnRt.anchorMax = new Vector2(0.65f, 0.20f); // Bottom Center. 
+        skipBtnRt.offsetMin = skipBtnRt.offsetMax = Vector2.zero; 
+        var skipTextObj = new GameObject("Skip Button Text"); // Create GameObject for skip button text. 
+        skipTextObj.transform.SetParent(skipButton.transform, false); // Set Skip Button GameObject as "Skip Button Text" GameObject's parent. 
+        Text skipBtnText = skipTextObj.AddComponent<Text>(); // Add Text as "Skip Button Text" GameObject's child. 
+        skipBtnText.text = "Skip Upgrade"; // Set the text of the "Skip Button Text"'s text component. 
+        skipBtnText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); // Set text font. 
+        skipBtnText.fontSize = 28; // Set font size of the text. 
+        skipBtnText.alignment = TextAnchor.MiddleCenter; // Position text in the middle center of the Skip Button. 
+        RectTransform skipTextRt = skipTextObj.GetComponent<RectTransform>(); // Get RectTransform component of "Skip Button Text" GameObject. 
+        skipTextRt.anchorMin = Vector2.zero; 
+        skipTextRt.anchorMax = Vector2.one;
+        skipTextRt.offsetMin = skipTextRt.offsetMax = Vector2.zero; 
+        skipBtn.onClick.AddListener(() => // Listen for click, then simply close the Upgrade panel when clicked. 
+        {
+            panel.SetActive(false); 
+            game_states.FinishPostBattle(); // Continue back to prepPhase. 
+        }); 
     }
 
     void OnUpgradeClicked(int slot)

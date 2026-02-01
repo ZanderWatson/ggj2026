@@ -112,7 +112,6 @@ public class game_states : MonoBehaviour
             player.activeMask = 0;
             character.transform.position = Vector3.zero;
             prepPhase = true;
-            maskCollectingPhase = true;
             duelPhase = false;
             map.GetComponent<SpriteRenderer>().color = Color.forestGreen;
         }

@@ -5,10 +5,10 @@ public class enemy : MonoBehaviour
 {
     [Header("Melee Settings")]
     public float punchRange = 1.5f;
-    public float normalPunchDamage = 2f;
-    public float chargedPunchDamage = 5f;
+    public float normalPunchDamage = 3f;
+    public float chargedPunchDamage = 6f;
     public float punchCooldown = 1f;
-    public float chargeChance = 0.3f; // 30% chance to charge before punching.
+    public float chargeChance = 0.2f; // 20% chance to charge before punching.
     [System.NonSerialized] public float attackPower = 1; 
 
     GameObject character;
