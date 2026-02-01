@@ -23,9 +23,7 @@ public class enemy : MonoBehaviour
     bool isChargingPunch;
     SpriteRenderer spriteRenderer;
     // attacking variables
-    float attackSpeedTimer;
     [SerializeField] GameObject projectile;
-    float projSpeed = 10;
 
     void Start()
     {
@@ -150,6 +148,8 @@ public class enemy : MonoBehaviour
         if (health <= 0)
         {
             game_states.OnPlayerWon(this);
+            game_states.SwitchPhases();
+            Destroy(gameObject);
         }
     }
 

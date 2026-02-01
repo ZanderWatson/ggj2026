@@ -93,6 +93,7 @@ public class game_states : MonoBehaviour
         } else if (duelPhase)
         {
             round += 1;
+            player.activeMask = 0;
             character.transform.position = Vector3.zero;
             prepPhase = true;
             duelPhase = false;

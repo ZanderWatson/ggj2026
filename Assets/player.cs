@@ -35,7 +35,7 @@ public class player : MonoBehaviour
     bool isChargingPunch;
     // Movement variables
     [NonSerialized] public float speed;
-    float projSpeed = 10;
+    public GameObject playerSprite;
     public Vector2 velocity = Vector2.zero;
     float acceleration = 1;
     const float MAX_SPEED = 6;
@@ -179,6 +179,13 @@ public class player : MonoBehaviour
         velocity = Vector2.ClampMagnitude(velocity, MAX_SPEED);
         velocity = Vector2.MoveTowards(velocity, Vector2.zero, 0.5f);
         transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)velocity * Time.fixedDeltaTime, velocity.magnitude * Time.fixedDeltaTime);
+        // face towards velocity direction
+        if (!velocity.Equals(Vector3.zero))
+        {
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+            playerSprite.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

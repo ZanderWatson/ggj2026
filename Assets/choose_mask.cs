@@ -93,10 +93,10 @@ public class choose_mask : MonoBehaviour
                 {
                     player.activeMask = player.maskInventory[0];
                 }
-                else if (two)
+                else if (two && player.maskInventory.Count > 1)
                 {
                     player.activeMask = player.maskInventory[1];
-                } else if (three)
+                } else if (three && player.maskInventory.Count > 2)
                 {
                     player.activeMask = player.maskInventory[2];
                 }
