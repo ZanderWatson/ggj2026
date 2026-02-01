@@ -45,6 +45,7 @@ public class player : MonoBehaviour
     public float maxSpeed = 6;
     bool up; bool left; bool right; bool down;
     public GameObject circle;
+    bool outOfBounds = false;
     void Start()
     {
         circle = GameObject.Find("punch debug");
@@ -186,6 +187,11 @@ public class player : MonoBehaviour
             float angle = Mathf.Atan2(punchDirection.y, punchDirection.x) * Mathf.Rad2Deg;
             playerSprite.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         }
+        // If out of bounds, take damage
+        if (outOfBounds)
+        {
+            takeDamage(Time.deltaTime * 5);
+        }
         // return to menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -230,9 +236,17 @@ public class player : MonoBehaviour
             takeDamage(5);
             StartCoroutine(HurtColor());
             Destroy(collision.gameObject, 0.03f);
+        } else if (collision.gameObject.name.Equals("Map"))
+        {
+            outOfBounds = false;
         }
     }
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Equals("Map")) {
+            outOfBounds = true;
+        }
+    }
     // Perform a punch attack (mouse left-click):
     void PerformPunch(bool isCharged)
     {
@@ -295,6 +309,7 @@ public class player : MonoBehaviour
         }
         if (health <= 0)
         {
+            game_states.gameTimer = 0;
             SceneManager.LoadScene("Main Menu");
         }
     }

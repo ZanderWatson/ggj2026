@@ -6719,8 +6719,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   punchRange: 2
-  normalPunchDamage: 3
-  chargedPunchDamage: 6
+  normalPunchDamage: 4
+  chargedPunchDamage: 8
   chargeTimeRequired: 1
   normalPunchCooldown: 0.7
   chargedPunchCooldown: 0.7
@@ -6873,7 +6873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HospitalMask
   cooldownTime: 10
-  hpRestore: 20
+  hpRestore: 7
   abilityKey: 101
   useMouseButton: 1
   maskObject: {fileID: 0}
@@ -7096,6 +7096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184882601}
   - component: {fileID: 1184882600}
+  - component: {fileID: 1184882602}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -7179,6 +7180,8 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545085861
 GameObject:
+--- !u!58 &1184882602
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7306,6 +7309,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1184882599}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 5
 --- !u!1 &1625028395
 GameObject:
   m_ObjectHideFlags: 0
