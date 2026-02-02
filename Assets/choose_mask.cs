@@ -99,14 +99,17 @@ public class choose_mask : MonoBehaviour
                 if (one && player.maskInventory.Count > 0)
                 {
                     player.activeMask = player.maskInventory[0];
+                    maskBG1.color = new Color(1,1,1,0.5f); maskBG2.color = Color.white; maskBG3.color = Color.white;
                 }
                 else if (two && player.maskInventory.Count > 1)
                 {
                     player.activeMask = player.maskInventory[1];
+                    maskBG1.color = Color.white; maskBG2.color = new Color(1, 1, 1, 0.5f); maskBG3.color = Color.white;
                 } 
                 else if (three && player.maskInventory.Count > 2)
                 {
                     player.activeMask = player.maskInventory[2];
+                    maskBG1.color = Color.white; maskBG2.color = Color.white; maskBG3.color = new Color(1, 1, 1, 0.5f);
                 }
                 Debug.Log("Active mask is: " + player.activeMask);
             }
@@ -164,5 +167,7 @@ public class choose_mask : MonoBehaviour
         choseMask = false;
         shouldCycle = true;
         one = true;
+        two = false;
+        three = false;
     }
 }
